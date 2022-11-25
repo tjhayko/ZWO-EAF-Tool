@@ -11,6 +11,6 @@ The SDK API allows this, but ASCOM drivers do not, so I created simple form to p
 
 The ASCOM Driver should not be required for this tool to run.
 
-You can download the installer here: https://github.com/tjhayko/ZWO-EAF-Tool/blob/master/ZWO-EAF-Tool-Setup.exe
+You can download the installer here: https://github.com/tjhayko/ZWO-EAF-Tool/raw/main/EAF-Tool-setup.exe
 
 Please let me know if you have any problems. 
