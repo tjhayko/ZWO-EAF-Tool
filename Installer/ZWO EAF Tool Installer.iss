@@ -23,7 +23,7 @@ DisableProgramGroupPage=yes
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=commandline
-OutputBaseFilename=EAFToolsetup.exe
+OutputBaseFilename=EAFToolsetup
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -35,9 +35,10 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\Dev\ZWO EAF Tool\ZWO EAF Tool\bin\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Dev\ZWO EAF Tool\ZWO EAF Tool\bin\release\ASCOM.EAF.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Dev\ZWO EAF Tool\ZWO EAF Tool\bin\release\EAF_focuser_ASCOM_x64.dll"; DestDir: "{app}"; Flags: ignoreversion
+; Source: "D:\Dev\ZWO EAF Tool\bin\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Dev\ZWO EAF Tool\bin\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Dev\ZWO EAF Tool\bin\release\ASCOM.EAF.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Dev\ZWO EAF Tool\bin\release\EAF_focuser_ASCOM_x64.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

@@ -81,6 +81,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Inno Setup 6\iscc" /O"$(ProjectDir)" /F"EAF-Tool-setup" "$(ProjectDir)\Installer\iscc cisetupsamplesmy script.iss"</PostBuildEvent>
+    <PostBuildEvent>"C:\Program Files (x86)\Inno Setup 6\iscc" /O"$(ProjectDir)" /F"EAF-Tool-setup" "$(ProjectDir)\Installer\ZWO EAF Tool Installer.iss"</PostBuildEvent>
   </PropertyGroup>
 </Project>
