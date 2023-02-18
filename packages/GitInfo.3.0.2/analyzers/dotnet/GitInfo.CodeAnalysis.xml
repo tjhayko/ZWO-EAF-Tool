@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GitInfo.CodeAnalysis</name>
+    </assembly>
+    <members>
+        <member name="T:ThisAssembly">
+            <summary>
+            Provides access to the current assembly information as pure constants, 
+             without requiring reflection.
+            </summary>
+        </member>
+        <member name="T:ThisAssembly.Info">
+            <summary>
+            Gets the AssemblyInfo attributes.
+            </summary>
+        </member>
+    </members>
+</doc>
