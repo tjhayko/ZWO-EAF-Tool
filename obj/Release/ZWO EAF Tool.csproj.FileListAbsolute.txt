@@ -35,3 +35,4 @@ D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.csproj.CoreCompileInputs.cache
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.csproj.CopyComplete
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.exe
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.pdb
+D:\Dev\ZWO EAF Tool\obj\Release\GitInfo.cache

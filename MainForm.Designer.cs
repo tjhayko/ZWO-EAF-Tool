@@ -41,13 +41,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblFocuserPosition = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtMoveSteps = new System.Windows.Forms.MaskedTextBox();
-            this.btn_MoveSteps = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.groupLargeRangeMoves = new System.Windows.Forms.GroupBox();
-            this.txtEndFocuserPosition = new System.Windows.Forms.MaskedTextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.groupLargeRangeMoves.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -102,7 +95,7 @@
             // txtTargetFocuserPosition
             // 
             this.txtTargetFocuserPosition.Location = new System.Drawing.Point(178, 140);
-            this.txtTargetFocuserPosition.Mask = "00000";
+            this.txtTargetFocuserPosition.Mask = "000000";
             this.txtTargetFocuserPosition.Name = "txtTargetFocuserPosition";
             this.txtTargetFocuserPosition.Size = new System.Drawing.Size(100, 26);
             this.txtTargetFocuserPosition.TabIndex = 2;
@@ -159,73 +152,11 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "ZWO EAF Tool © Tom Hayko";
             // 
-            // txtMoveSteps
-            // 
-            this.txtMoveSteps.Location = new System.Drawing.Point(208, 31);
-            this.txtMoveSteps.Mask = "#000000";
-            this.txtMoveSteps.Name = "txtMoveSteps";
-            this.txtMoveSteps.Size = new System.Drawing.Size(100, 26);
-            this.txtMoveSteps.TabIndex = 12;
-            this.txtMoveSteps.ValidatingType = typeof(int);
-            // 
-            // btn_MoveSteps
-            // 
-            this.btn_MoveSteps.Location = new System.Drawing.Point(325, 25);
-            this.btn_MoveSteps.Name = "btn_MoveSteps";
-            this.btn_MoveSteps.Size = new System.Drawing.Size(113, 34);
-            this.btn_MoveSteps.TabIndex = 14;
-            this.btn_MoveSteps.Text = "Move Steps";
-            this.btn_MoveSteps.UseVisualStyleBackColor = true;
-            this.btn_MoveSteps.Click += new System.EventHandler(this.btnMoveSteps_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(110, 31);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(93, 20);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Move Steps";
-            // 
-            // groupLargeRangeMoves
-            // 
-            this.groupLargeRangeMoves.Controls.Add(this.txtEndFocuserPosition);
-            this.groupLargeRangeMoves.Controls.Add(this.label7);
-            this.groupLargeRangeMoves.Controls.Add(this.btn_MoveSteps);
-            this.groupLargeRangeMoves.Controls.Add(this.txtMoveSteps);
-            this.groupLargeRangeMoves.Controls.Add(this.label6);
-            this.groupLargeRangeMoves.Enabled = false;
-            this.groupLargeRangeMoves.Location = new System.Drawing.Point(8, 256);
-            this.groupLargeRangeMoves.Name = "groupLargeRangeMoves";
-            this.groupLargeRangeMoves.Size = new System.Drawing.Size(571, 127);
-            this.groupLargeRangeMoves.TabIndex = 15;
-            this.groupLargeRangeMoves.TabStop = false;
-            this.groupLargeRangeMoves.Text = "Large Range Moves";
-            // 
-            // txtEndFocuserPosition
-            // 
-            this.txtEndFocuserPosition.Location = new System.Drawing.Point(208, 70);
-            this.txtEndFocuserPosition.Mask = "000000";
-            this.txtEndFocuserPosition.Name = "txtEndFocuserPosition";
-            this.txtEndFocuserPosition.Size = new System.Drawing.Size(100, 26);
-            this.txtEndFocuserPosition.TabIndex = 15;
-            this.txtEndFocuserPosition.ValidatingType = typeof(int);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 70);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(193, 20);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "New HW Focuser Position";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(591, 395);
-            this.Controls.Add(this.groupLargeRangeMoves);
+            this.ClientSize = new System.Drawing.Size(570, 219);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblFocuserPosition);
             this.Controls.Add(this.label4);
@@ -240,8 +171,6 @@
             this.Name = "MainForm";
             this.Text = "ZWO EAF Tool";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.groupLargeRangeMoves.ResumeLayout(false);
-            this.groupLargeRangeMoves.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,12 +190,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblFocuserPosition;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.MaskedTextBox txtMoveSteps;
-        private System.Windows.Forms.Button btn_MoveSteps;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.GroupBox groupLargeRangeMoves;
-        private System.Windows.Forms.MaskedTextBox txtEndFocuserPosition;
-        private System.Windows.Forms.Label label7;
     }
 }
 

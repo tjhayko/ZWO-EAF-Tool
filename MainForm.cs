@@ -74,7 +74,6 @@ namespace ZWO_EAF_Tool
 
             btnMoveTo.Enabled = true;
             btnSetPosition.Enabled = true;
-            groupLargeRangeMoves.Enabled = true;
 
             eafRC = EAFdll.Open(item.id);
 
@@ -281,7 +280,7 @@ namespace ZWO_EAF_Tool
 
         }
 
-        private void btnMoveSteps_Click(object sender, EventArgs e)
+        /*private void btnMoveSteps_Click(object sender, EventArgs e)
         {
             EAFdll.EAF_ERROR_CODE eafRC;
             int currPos;
@@ -490,7 +489,7 @@ namespace ZWO_EAF_Tool
             }
 
             tmrUpdateDisplay.Enabled = true;
-        }
+        } */
 
         private void WaitforMove(int id)
         {
