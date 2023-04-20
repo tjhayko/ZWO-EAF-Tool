@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "ZWO EAF Tool"
-#define MyAppVersion "0.2"
+#define MyAppVersion "0.3"
 #define MyAppPublisher "Tom Hayko"
 #define MyAppURL "N/A"
 #define MyAppExeName "ZWO EAF Tool.exe"
