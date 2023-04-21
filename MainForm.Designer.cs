@@ -41,6 +41,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblFocuserPosition = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.chkStayOnTop = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -152,11 +153,23 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "ZWO EAF Tool © Tom Hayko";
             // 
+            // chkStayOnTop
+            // 
+            this.chkStayOnTop.AutoSize = true;
+            this.chkStayOnTop.Location = new System.Drawing.Point(438, 20);
+            this.chkStayOnTop.Name = "chkStayOnTop";
+            this.chkStayOnTop.Size = new System.Drawing.Size(120, 24);
+            this.chkStayOnTop.TabIndex = 12;
+            this.chkStayOnTop.Text = "Stay on Top";
+            this.chkStayOnTop.UseVisualStyleBackColor = true;
+            this.chkStayOnTop.CheckedChanged += new System.EventHandler(this.chkStayOnTop_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(570, 219);
+            this.Controls.Add(this.chkStayOnTop);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblFocuserPosition);
             this.Controls.Add(this.label4);
@@ -190,6 +203,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblFocuserPosition;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox chkStayOnTop;
     }
 }
 

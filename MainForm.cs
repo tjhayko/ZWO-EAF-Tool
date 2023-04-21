@@ -9,15 +9,29 @@ using System.Threading;
 using System.Windows.Forms;
 using ZWOptical.EAFSDK;
 using static ZWOptical.EAFSDK.EAFdll;
+using System.Runtime.InteropServices;
+
+// using code from here https://stackoverflow.com/questions/683330/how-to-make-a-window-always-stay-on-top-in-net
 
 
 namespace ZWO_EAF_Tool
 {
     public partial class MainForm : Form
     {
+        private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+        private const UInt32 SWP_NOSIZE = 0x0001;
+        private const UInt32 SWP_NOMOVE = 0x0002;
+        private const UInt32 TOPMOST_FLAGS = SWP_NOMOVE | SWP_NOSIZE;
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
         public MainForm()
         {
             InitializeComponent();
+            // FormBorderStyle = FormBorderStyle.FixedSingle;
+            // TopMost = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -516,6 +530,18 @@ namespace ZWO_EAF_Tool
                     }
                 }
             } while(bIsMoving || bIsHCMoving);
+        }
+
+        private void chkStayOnTop_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkStayOnTop.Checked)
+            {
+                TopMost = true;
+            }
+            else
+            {
+                TopMost = false;
+            }
         }
     }
 }
