@@ -10,6 +10,7 @@
     <RootNamespace>ZWO_EAF_Tool</RootNamespace>
     <AssemblyName>ZWO EAF Tool</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <LangVersion>10.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
@@ -110,6 +111,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AddBookmark.resx">
       <DependentUpon>AddBookmark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditBookmarks.resx">
+      <DependentUpon>EditBookmarks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

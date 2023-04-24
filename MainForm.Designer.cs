@@ -40,7 +40,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblFocuserPosition = new System.Windows.Forms.Label();
             this.chkStayOnTop = new System.Windows.Forms.CheckBox();
-            this.splitButton1 = new ZWO_EAF_Tool.SplitButton();
             this.cntxtmnuBookmarks = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuAddBookmark = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEditBookmarks = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +48,8 @@
             this.btnMoveUp = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtBoxStep = new System.Windows.Forms.MaskedTextBox();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.splitButton1 = new ZWO_EAF_Tool.SplitButton();
             this.cntxtmnuBookmarks.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,7 +86,7 @@
             this.btnSetPosition.Location = new System.Drawing.Point(171, 86);
             this.btnSetPosition.Name = "btnSetPosition";
             this.btnSetPosition.Size = new System.Drawing.Size(55, 34);
-            this.btnSetPosition.TabIndex = 3;
+            this.btnSetPosition.TabIndex = 6;
             this.btnSetPosition.Text = "Set";
             this.btnSetPosition.UseVisualStyleBackColor = true;
             this.btnSetPosition.Click += new System.EventHandler(this.btnSetPosition_Click);
@@ -96,7 +97,7 @@
             this.btnMoveTo.Location = new System.Drawing.Point(232, 86);
             this.btnMoveTo.Name = "btnMoveTo";
             this.btnMoveTo.Size = new System.Drawing.Size(60, 34);
-            this.btnMoveTo.TabIndex = 4;
+            this.btnMoveTo.TabIndex = 7;
             this.btnMoveTo.Text = "Goto";
             this.btnMoveTo.UseVisualStyleBackColor = true;
             this.btnMoveTo.Click += new System.EventHandler(this.btnMoveTo_Click);
@@ -107,7 +108,7 @@
             this.txtTargetFocuserPosition.Mask = "000000";
             this.txtTargetFocuserPosition.Name = "txtTargetFocuserPosition";
             this.txtTargetFocuserPosition.Size = new System.Drawing.Size(67, 26);
-            this.txtTargetFocuserPosition.TabIndex = 2;
+            this.txtTargetFocuserPosition.TabIndex = 5;
             this.txtTargetFocuserPosition.ValidatingType = typeof(int);
             // 
             // tmrUpdateDisplay
@@ -147,21 +148,10 @@
             this.chkStayOnTop.Location = new System.Drawing.Point(95, 168);
             this.chkStayOnTop.Name = "chkStayOnTop";
             this.chkStayOnTop.Size = new System.Drawing.Size(120, 24);
-            this.chkStayOnTop.TabIndex = 12;
+            this.chkStayOnTop.TabIndex = 10;
             this.chkStayOnTop.Text = "Stay on Top";
             this.chkStayOnTop.UseVisualStyleBackColor = true;
             this.chkStayOnTop.CheckedChanged += new System.EventHandler(this.chkStayOnTop_CheckedChanged);
-            // 
-            // splitButton1
-            // 
-            this.splitButton1.Location = new System.Drawing.Point(94, 122);
-            this.splitButton1.Menu = this.cntxtmnuBookmarks;
-            this.splitButton1.Name = "splitButton1";
-            this.splitButton1.Size = new System.Drawing.Size(138, 34);
-            this.splitButton1.TabIndex = 13;
-            this.splitButton1.Text = "Bookmarks";
-            this.splitButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.splitButton1.UseVisualStyleBackColor = true;
             // 
             // cntxtmnuBookmarks
             // 
@@ -171,28 +161,28 @@
             this.mnuEditBookmarks,
             this.saveToolStripMenuItem});
             this.cntxtmnuBookmarks.Name = "contextMenuStrip1";
-            this.cntxtmnuBookmarks.Size = new System.Drawing.Size(241, 133);
+            this.cntxtmnuBookmarks.Size = new System.Drawing.Size(216, 100);
             this.cntxtmnuBookmarks.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cntxtmnuBookmarks_ItemClicked);
             // 
             // mnuAddBookmark
             // 
             this.mnuAddBookmark.Name = "mnuAddBookmark";
-            this.mnuAddBookmark.Size = new System.Drawing.Size(240, 32);
+            this.mnuAddBookmark.Size = new System.Drawing.Size(215, 32);
             this.mnuAddBookmark.Text = "Add";
             this.mnuAddBookmark.Click += new System.EventHandler(this.mnuAddBookmark_Click);
             // 
             // mnuEditBookmarks
             // 
             this.mnuEditBookmarks.Name = "mnuEditBookmarks";
-            this.mnuEditBookmarks.Size = new System.Drawing.Size(240, 32);
+            this.mnuEditBookmarks.Size = new System.Drawing.Size(215, 32);
             this.mnuEditBookmarks.Text = "Edit/Delete";
             this.mnuEditBookmarks.Click += new System.EventHandler(this.mnuEditBookmarks_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
-            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(215, 32);
+            this.saveToolStripMenuItem.Text = "Save Bookmarks";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // btnMoveDown
@@ -200,7 +190,7 @@
             this.btnMoveDown.Location = new System.Drawing.Point(95, 47);
             this.btnMoveDown.Name = "btnMoveDown";
             this.btnMoveDown.Size = new System.Drawing.Size(25, 34);
-            this.btnMoveDown.TabIndex = 14;
+            this.btnMoveDown.TabIndex = 2;
             this.btnMoveDown.Text = "<";
             this.btnMoveDown.UseVisualStyleBackColor = true;
             this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
@@ -210,7 +200,7 @@
             this.btnMoveUp.Location = new System.Drawing.Point(191, 47);
             this.btnMoveUp.Name = "btnMoveUp";
             this.btnMoveUp.Size = new System.Drawing.Size(25, 34);
-            this.btnMoveUp.TabIndex = 15;
+            this.btnMoveUp.TabIndex = 3;
             this.btnMoveUp.Text = ">";
             this.btnMoveUp.UseVisualStyleBackColor = true;
             this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
@@ -230,15 +220,37 @@
             this.txtBoxStep.Mask = "000000";
             this.txtBoxStep.Name = "txtBoxStep";
             this.txtBoxStep.Size = new System.Drawing.Size(67, 26);
-            this.txtBoxStep.TabIndex = 17;
+            this.txtBoxStep.TabIndex = 4;
             this.txtBoxStep.Text = "1";
             this.txtBoxStep.ValidatingType = typeof(int);
+            // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(298, 87);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(60, 34);
+            this.btnStop.TabIndex = 8;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // splitButton1
+            // 
+            this.splitButton1.Location = new System.Drawing.Point(94, 122);
+            this.splitButton1.Menu = this.cntxtmnuBookmarks;
+            this.splitButton1.Name = "splitButton1";
+            this.splitButton1.Size = new System.Drawing.Size(138, 34);
+            this.splitButton1.TabIndex = 8;
+            this.splitButton1.Text = "Bookmarks";
+            this.splitButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.splitButton1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 219);
+            this.ClientSize = new System.Drawing.Size(385, 219);
+            this.Controls.Add(this.btnStop);
             this.Controls.Add(this.txtBoxStep);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnMoveUp);
@@ -285,6 +297,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.MaskedTextBox txtBoxStep;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.Button btnStop;
     }
 }
 

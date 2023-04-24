@@ -12,13 +12,14 @@ using static ZWOptical.EAFSDK.EAFdll;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.IO;
+using System.Text.Json.Nodes;
+using System.Xml;
+using System.Diagnostics.Eventing.Reader;
 
 // using code from here https://stackoverflow.com/questions/683330/how-to-make-a-window-always-stay-on-top-in-net
 
 namespace ZWO_EAF_Tool
 {
-    
-
     public partial class MainForm : Form
     {
         const string settingsDirectory = "ZWOEAFTool";
@@ -32,6 +33,201 @@ namespace ZWO_EAF_Tool
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+        private void moveTo(int id, int pos)
+        {
+            EAF_ERROR_CODE eafRC;
+
+            eafRC = EAFdll.Open(id);
+
+            if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+            {
+                eafRC = EAFdll.Move(id, pos);
+
+                if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+                {
+                    // Move worked
+                    lblFocuserMoving.Text = "Moving";
+
+                    tmrUpdateDisplay.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Move() failed, rc = " + eafRC.ToString(), "EAF Tool");
+                }
+
+                eafRC = EAFdll.Close(id);
+
+                if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("Close() failed, rc = " + eafRC.ToString(), "EAF Tool");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Open() failed, rc = " + eafRC.ToString());
+            }
+        }
+
+        private void moveRelative(int id, int pos)
+        {
+            EAF_ERROR_CODE eafRC;
+            int currPos;
+
+            eafRC = EAFdll.Open(id);
+
+            if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+            {
+                eafRC = EAFdll.GetPostion(id, out currPos);
+
+                if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+                {
+                    pos = currPos + pos;
+
+                    if (pos >= 0)
+                    {
+                        eafRC = EAFdll.Move(id, pos);
+
+                        if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+                        {
+                            // Move worked
+                            lblFocuserMoving.Text = "Moving";
+
+                            tmrUpdateDisplay.Enabled = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Move() failed, rc = " + eafRC.ToString(), "EAF Tool");
+                        }
+
+                        eafRC = EAFdll.Close(id);
+
+                        if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Close() failed, rc = " + eafRC.ToString(), "EAF Tool");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Open() failed, rc = " + eafRC.ToString());
+            }
+
+        }
+
+        private void setPosition(int id, int pos)
+        {
+            EAF_ERROR_CODE eafRC;
+
+            eafRC = EAFdll.Open(id);
+
+            if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+            {
+                eafRC = EAFdll.ResetPostion(id, pos);
+
+                if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+                {
+                    MessageBox.Show("New Position set to " + pos.ToString(), "ZWO EAF Tool");
+                    lblFocuserPosition.Text = pos.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("ResetPosition() returned " + eafRC.ToString(), "ZWO EAF Tool");
+                }
+
+                eafRC = EAFdll.Close(id);
+
+                if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
+                {
+                    // everything worked
+                }
+                else
+                {
+                    MessageBox.Show("Close() returned" + eafRC.ToString(), "ZWO EAF Tool");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Open() returned " + eafRC.ToString(), "ZWO EAF Tool");
+            }
+        }
+
+        private int getPosition(int id)
+        {
+            EAF_ERROR_CODE eafRC;
+            int pos = 0;
+
+            btnMoveTo.Enabled = true;
+            btnSetPosition.Enabled = true;
+
+            eafRC = EAFdll.Open(id);
+
+            if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
+            {
+                eafRC = EAFdll.GetPostion(id, out pos);
+
+                if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
+                {
+                }
+                else
+                {
+                    MessageBox.Show("GetPosition() returned " + eafRC.ToString(), "ZWO EAF Tool");
+                }
+
+                eafRC = EAFdll.Close(id);
+
+                if (eafRC != EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
+                {
+                    MessageBox.Show("Close() returned" + eafRC.ToString(), "ZWO EAF Tool");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Open() returned " + eafRC.ToString(), "ZWO EAF Tool");
+            }
+            return pos;
+        }
+
+        private void stopFocuser(int id)
+        {
+            EAF_ERROR_CODE eafRC;
+
+            eafRC = EAFdll.Open(id);
+
+            if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+            {
+                eafRC = EAFdll.Stop(id);
+
+                if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("Error, Stop() returned" + eafRC.ToString(), "EAF Tool");
+                }
+
+                eafRC = EAFdll.Close(id);
+
+                if (eafRC != EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
+                {
+                    MessageBox.Show("Close() returned" + eafRC.ToString(), "ZWO EAF Tool");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error, Open returned " + eafRC.ToString(), "EAF Tool");
+            }
+        }
 
         private void addMenusFromSettings()
         {
@@ -47,7 +243,7 @@ namespace ZWO_EAF_Tool
 
                 bookmarks = JsonSerializer.Deserialize<List<Bookmark>>(jsonSettings);
 
-                foreach(Bookmark b in bookmarks)
+                foreach (Bookmark b in bookmarks)
                 {
                     ToolStripMenuItem t = new ToolStripMenuItem();
 
@@ -59,13 +255,69 @@ namespace ZWO_EAF_Tool
             }
         }
 
+        private void readSettings()
+        {
+            JsonDocument doc;
+
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            string file = folder + "\\" + settingsDirectory + "\\" + settingsFileName;
+
+            if (!File.Exists(file))
+            {
+                // Nothing to read
+            }
+            else
+            {
+                string str = File.ReadAllText(file);
+
+                doc = JsonDocument.Parse(str);
+
+                txtBoxStep.Text = doc.RootElement.GetProperty("StepSize").GetProperty("Value").GetString();
+
+                int count = 0;
+
+                try
+                {
+                    while (true)
+                    {
+                        Bookmark b = new Bookmark(); ;
+                        string propName = "Menu" + count.ToString();
+
+                        JsonElement elem = doc.RootElement.GetProperty(propName);
+
+                        b.name = elem.GetProperty("Name").GetString();
+                        b.position = elem.GetProperty("Position").GetInt32();
+
+                        ToolStripMenuItem t = new ToolStripMenuItem();
+
+                        t.Tag = b;
+                        t.Text = b.name;
+
+                        cntxtmnuBookmarks.Items.Add(t);
+
+                        count++;
+                    }
+                }
+                catch (KeyNotFoundException keyNotFound)
+                {
+                    // means we've reached the end of the menu items
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();
             // FormBorderStyle = FormBorderStyle.FixedSingle;
             // TopMost = true;
 
-            addMenusFromSettings();
+            // addMenusFromSettings();
+            readSettings();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -117,88 +369,35 @@ namespace ZWO_EAF_Tool
         {
             EAFdll.EAF_ERROR_CODE eafRC;
             int pos;
-            
+
             EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
 
             btnMoveTo.Enabled = true;
             btnSetPosition.Enabled = true;
 
-            eafRC = EAFdll.Open(item.id);
+            pos = getPosition(item.id);
 
-            if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
-            {
-                eafRC = EAFdll.GetPostion(item.id, out pos);
-
-                if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
-                {
-                    txtTargetFocuserPosition.Text = pos.ToString();
-                    lblFocuserPosition.Text = pos.ToString();
-                }
-                else
-                {
-                    MessageBox.Show("GetPosition() returned " + eafRC.ToString(), "ZWO EAF Tool");
-                }
-
-                eafRC = EAFdll.Close(item.id);
-
-                if(eafRC != EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
-                {
-                    MessageBox.Show("Close() returned" + eafRC.ToString(), "ZWO EAF Tool");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Open() returned " + eafRC.ToString(), "ZWO EAF Tool");
-            }
+            lblFocuserPosition.Text = pos.ToString();
+            txtTargetFocuserPosition.Text = pos.ToString();
         }
 
         private void btnSetPosition_Click(object sender, EventArgs e)
         {
             EAFdll.EAF_ERROR_CODE eafRC;
 
-            if(comboBoxFocuser.SelectedItem != null)
+            if (comboBoxFocuser.SelectedItem != null)
             {
                 EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
 
-                eafRC = EAFdll.Open(item.id);
+                int iNewPos;
 
-                if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+                if (Int32.TryParse(txtTargetFocuserPosition.Text, out iNewPos))
                 {
-                    int iNewPos;
-
-                    if(Int32.TryParse(txtTargetFocuserPosition.Text, out iNewPos))
-                    {
-                        eafRC = EAFdll.ResetPostion(item.id, iNewPos);
-
-                        if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
-                        {
-                            MessageBox.Show("New Position set!", "ZWO EAF Tool");
-                            lblFocuserPosition.Text = iNewPos.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show("ResetPosition() returned " + eafRC.ToString(), "ZWO EAF Tool");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("text '" + eafRC.ToString() + "' couldn't be parsed to an integer", "ZWO EAF Tool");
-                    }
-
-                    eafRC = EAFdll.Close(item.id);
-
-                    if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
-                    {
-                        // everything worked
-                    }
-                    else
-                    {
-                        MessageBox.Show("Close() returned" + eafRC.ToString(), "ZWO EAF Tool");
-                    }
+                    setPosition(item.id, iNewPos);
                 }
                 else
                 {
-                    MessageBox.Show("Open() returned " + eafRC.ToString(), "ZWO EAF Tool");
+                    MessageBox.Show("text '" + txtTargetFocuserPosition.Text + "' couldn't be parsed to an integer", "ZWO EAF Tool");
                 }
             }
             else
@@ -210,52 +409,19 @@ namespace ZWO_EAF_Tool
         private void btnMoveTo_Click(object sender, EventArgs e)
         {
             EAFdll.EAF_ERROR_CODE eafRC;
+            int iNewPos = 0;
 
             if (comboBoxFocuser.SelectedItem != null)
             {
                 EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
 
-                eafRC = EAFdll.Open(item.id);
-
-                if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
+                if (Int32.TryParse(txtTargetFocuserPosition.Text, out iNewPos))
                 {
-                    int iNewPos;
-
-                    if (Int32.TryParse(txtTargetFocuserPosition.Text, out iNewPos))
-                    {
-                        eafRC = EAFdll.Move(item.id, iNewPos);
-
-                        if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
-                        {
-                            comboBoxFocuser.Enabled = false;
-
-                            tmrUpdateDisplay.Enabled = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("ResetPosition() returned " + eafRC.ToString(), "ZWO EAF Tool");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("text '" + eafRC.ToString() + "' couldn't be parsed to an integer", "ZWO EAF Tool");
-                    }
-
-                    eafRC = EAFdll.Close(item.id);
-
-                    if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
-                    {
-                        // everything worked
-                    }
-                    else
-                    {
-                        MessageBox.Show("Close() returned" + eafRC.ToString(), "ZWO EAF Tool");
-                    }
-
+                    moveTo(item.id, iNewPos);
                 }
                 else
                 {
-                    MessageBox.Show("Open() returned " + eafRC.ToString(), "ZWO EAF Tool");
+                    MessageBox.Show("text '" + txtTargetFocuserPosition.Text + "' couldn't be parsed to an integer", "ZWO EAF Tool");
                 }
             }
             else
@@ -282,7 +448,7 @@ namespace ZWO_EAF_Tool
 
                 if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
                 {
-                    if(bSet || bHC)
+                    if (bSet || bHC)
                     {
                         lblFocuserMoving.Text = "Moving";
                     }
@@ -317,7 +483,7 @@ namespace ZWO_EAF_Tool
                     // everything worked
                 }
                 else
-                { 
+                {
                     MessageBox.Show("Close() returned" + eafRC.ToString(), "ZWO EAF Tool");
                 }
             }
@@ -338,7 +504,7 @@ namespace ZWO_EAF_Tool
             {
                 eafRC = EAFdll.IsMoving(id, out bIsMoving, out bIsHCMoving);
 
-                if(eafRC != EAF_ERROR_CODE.EAF_SUCCESS)
+                if (eafRC != EAF_ERROR_CODE.EAF_SUCCESS)
                 {
                     // TODO: thown an exception here instead
 
@@ -347,12 +513,12 @@ namespace ZWO_EAF_Tool
                 }
                 else
                 {
-                    if(bIsMoving && bIsHCMoving)
+                    if (bIsMoving && bIsHCMoving)
                     {
                         Thread.Sleep(200);
                     }
                 }
-            } while(bIsMoving || bIsHCMoving);
+            } while (bIsMoving || bIsHCMoving);
         }
 
         private void chkStayOnTop_CheckedChanged(object sender, EventArgs e)
@@ -370,7 +536,6 @@ namespace ZWO_EAF_Tool
         private void btnMoveDown_Click(object sender, EventArgs e)
         {
             EAFdll.EAF_ERROR_CODE eafRC;
-
             int iStep;
 
             if (!Int32.TryParse(txtBoxStep.Text, out iStep))
@@ -383,59 +548,14 @@ namespace ZWO_EAF_Tool
                 {
                     EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
 
-                    eafRC = EAFdll.Open(item.id);
-
-                    if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
-                    {
-                        int currPos;
-
-                        eafRC = EAFdll.GetPostion(item.id, out currPos);
-
-                        if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
-                        {
-                            eafRC = EAFdll.Move(item.id, currPos - iStep);
-
-                            if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
-                            {
-                                lblFocuserMoving.Text = "Moving";
-
-                                comboBoxFocuser.Enabled = false;
-
-                                tmrUpdateDisplay.Enabled = true;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Move() returned" + eafRC.ToString(), "ZWO EAF Tool");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("GetPostion() returned" + eafRC.ToString(), "ZWO EAF Tool");
-
-                        }
-
-                        eafRC = EAFdll.Close(item.id);
-
-                        if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
-                        {
-                            // everything worked
-                        }
-                        else
-                        {
-                            MessageBox.Show("Close() returned" + eafRC.ToString(), "ZWO EAF Tool");
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Open() returned " + eafRC.ToString(), "ZWO EAF Tool");
-                    }
+                    moveRelative(item.id, -iStep);
                 }
                 else
                 {
                     MessageBox.Show("No focuser selected", "ZWO EAF Tool");
                 }
             }
+
         }
 
         private void btnMoveUp_Click(object sender, EventArgs e)
@@ -453,60 +573,13 @@ namespace ZWO_EAF_Tool
                 {
                     EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
 
-                    eafRC = EAFdll.Open(item.id);
-
-                    if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
-                    {
-                        int currPos;
-
-                        eafRC = EAFdll.GetPostion(item.id, out currPos);
-
-                        if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
-                        {
-                            eafRC = EAFdll.Move(item.id, currPos + iStep);
-
-                            if (eafRC == EAF_ERROR_CODE.EAF_SUCCESS)
-                            {
-                                lblFocuserMoving.Text = "Moving";
-
-                                comboBoxFocuser.Enabled = false;
-
-                                tmrUpdateDisplay.Enabled = true;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Move() returned" + eafRC.ToString(), "ZWO EAF Tool");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("GetPostion() returned" + eafRC.ToString(), "ZWO EAF Tool");
-
-                        }
-
-                        eafRC = EAFdll.Close(item.id);
-
-                        if (eafRC == EAFdll.EAF_ERROR_CODE.EAF_SUCCESS)
-                        {
-                            // everything worked
-                        }
-                        else
-                        {
-                            MessageBox.Show("Close() returned" + eafRC.ToString(), "ZWO EAF Tool");
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Open() returned " + eafRC.ToString(), "ZWO EAF Tool");
-                    }
+                    moveRelative(item.id, iStep);
                 }
                 else
                 {
                     MessageBox.Show("No focuser selected", "ZWO EAF Tool");
                 }
             }
-
         }
 
         private void mnuAddBookmark_Click(object sender, EventArgs e)
@@ -559,6 +632,7 @@ namespace ZWO_EAF_Tool
         {
             Form edit;
 
+
             edit = new EditBookmarks();
 
             edit.ShowDialog();
@@ -568,9 +642,16 @@ namespace ZWO_EAF_Tool
         {
             if (e.ClickedItem.Tag != null)
             {
+                //TODO: add code to actually move the position
+
                 Bookmark mark = (Bookmark)e.ClickedItem.Tag;
 
-                MessageBox.Show("should be moving to position " + mark.position.ToString(), "Debug Message");
+                if (comboBoxFocuser.SelectedItem != null)
+                {
+                    EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
+
+                    moveTo(item.id, mark.position);
+                }
             }
             else
             {
@@ -581,11 +662,11 @@ namespace ZWO_EAF_Tool
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // TODO: Save Menu Items here
-            List<Bookmark> list = new List<Bookmark>();
+            /* List<Bookmark> list = new List<Bookmark>();
 
-            foreach(ToolStripMenuItem item in cntxtmnuBookmarks.Items)
+            foreach (ToolStripMenuItem item in cntxtmnuBookmarks.Items)
             {
-                if(item.Tag != null)
+                if (item.Tag != null)
                 {
                     list.Add((Bookmark)item.Tag);
                 }
@@ -595,18 +676,57 @@ namespace ZWO_EAF_Tool
 
             // MessageBox.Show("Serialized bookmark list = '" + json + "'", "Debug Message");
 
+
+            File.WriteAllText(file, json); */
+
+            // Creating custom JSON object instead of serialized list work in progress
+
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
             string directory = folder + "\\" + settingsDirectory;
 
-            if(!File.Exists(directory))
+            if (!File.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
             string file = directory + "\\" + settingsFileName;
 
-            File.WriteAllText(file, json);
+            JsonObject settings = new JsonObject();
+
+            settings!["StepSize"] = new JsonObject { ["Value"] = txtBoxStep.Text };
+
+            int count = 0;
+
+            foreach (ToolStripMenuItem item in cntxtmnuBookmarks.Items)
+            {
+                if (item.Tag != null)
+                {
+                    Bookmark b = (Bookmark)item.Tag;
+
+                    settings!["Menu" + count.ToString()] = new JsonObject { ["Name"] = b.name, ["Position"] = b.position };
+
+                    count++;
+                }
+            }
+
+            JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
+
+            MessageBox.Show(settings.ToJsonString(options));
+
+            File.WriteAllText(file, settings.ToJsonString(options));
+
+            JsonNode tmp = settings!["Menu" + (count - 1).ToString()];
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            if (comboBoxFocuser.SelectedItem != null)
+            {
+                EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
+
+                stopFocuser(item.id);
+            }
         }
     }
 }

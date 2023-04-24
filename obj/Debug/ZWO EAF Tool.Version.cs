@@ -11,8 +11,8 @@
 #pragma warning disable CA2243
 
 [assembly: System.Reflection.AssemblyVersionAttribute("0.0.0.0")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("0.0.0.33965")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.0.0+84ad4a7fa4")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("0.0.0.33113")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.0.0+815922e06b")]
 #if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
 [System.CodeDom.Compiler.GeneratedCode("Nerdbank.GitVersioning.Tasks","3.5.119.9565")]
 #endif
@@ -21,12 +21,12 @@
 #endif
 internal static partial class ThisAssembly {
     internal const string AssemblyConfiguration = "Debug";
-    internal const string AssemblyFileVersion = "0.0.0.33965";
-    internal const string AssemblyInformationalVersion = "0.0.0+84ad4a7fa4";
+    internal const string AssemblyFileVersion = "0.0.0.33113";
+    internal const string AssemblyInformationalVersion = "0.0.0+815922e06b";
     internal const string AssemblyName = "ZWO EAF Tool";
     internal const string AssemblyVersion = "0.0.0.0";
-    internal static readonly System.DateTime GitCommitDate = new System.DateTime(638176404160000000L, System.DateTimeKind.Utc);
-    internal const string GitCommitId = "84ad4a7fa4f6d1205415781a0d22966610ef5cec";
+    internal static readonly System.DateTime GitCommitDate = new System.DateTime(638178796270000000L, System.DateTimeKind.Utc);
+    internal const string GitCommitId = "815922e06b086991e3449e6275080437e3b40e68";
     internal const bool IsPrerelease = false;
     internal const bool IsPublicRelease = false;
     internal const string RootNamespace = "ZWO_EAF_Tool";

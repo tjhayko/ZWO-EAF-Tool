@@ -36,3 +36,27 @@ D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.csproj.CopyComplete
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.exe
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.pdb
 D:\Dev\ZWO EAF Tool\obj\Release\GitInfo.cache
+D:\Dev\ZWO EAF Tool\bin\Release\ZWO EAF Tool.exe.config
+D:\Dev\ZWO EAF Tool\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.Buffers.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.Memory.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.Net.Http.Json.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.Numerics.Vectors.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.Text.Encodings.Web.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.Text.Json.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.Threading.Tasks.Extensions.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.ValueTuple.dll
+D:\Dev\ZWO EAF Tool\bin\Release\Microsoft.Bcl.AsyncInterfaces.xml
+D:\Dev\ZWO EAF Tool\bin\Release\System.Buffers.xml
+D:\Dev\ZWO EAF Tool\bin\Release\System.Memory.xml
+D:\Dev\ZWO EAF Tool\bin\Release\System.Net.Http.Json.xml
+D:\Dev\ZWO EAF Tool\bin\Release\System.Numerics.Vectors.xml
+D:\Dev\ZWO EAF Tool\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+D:\Dev\ZWO EAF Tool\bin\Release\System.Text.Encodings.Web.xml
+D:\Dev\ZWO EAF Tool\bin\Release\System.Text.Json.xml
+D:\Dev\ZWO EAF Tool\bin\Release\System.Threading.Tasks.Extensions.xml
+D:\Dev\ZWO EAF Tool\bin\Release\System.ValueTuple.xml
+D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.csproj.SuggestedBindingRedirects.cache
+D:\Dev\ZWO EAF Tool\obj\Release\ZWO_EAF_Tool.AddBookmark.resources
+D:\Dev\ZWO EAF Tool\obj\Release\ZWO_EAF_Tool.EditBookmarks.resources
