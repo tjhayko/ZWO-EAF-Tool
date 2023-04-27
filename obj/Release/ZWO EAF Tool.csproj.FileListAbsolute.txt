@@ -60,3 +60,7 @@ D:\Dev\ZWO EAF Tool\bin\Release\System.ValueTuple.xml
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.csproj.SuggestedBindingRedirects.cache
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO_EAF_Tool.AddBookmark.resources
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO_EAF_Tool.EditBookmarks.resources
+D:\Dev\ZWO EAF Tool\bin\Release\ZWO EAF Tool.exe.manifest
+D:\Dev\ZWO EAF Tool\bin\Release\ZWO EAF Tool.application
+D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.exe.manifest
+D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.application

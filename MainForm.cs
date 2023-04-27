@@ -302,6 +302,7 @@ namespace ZWO_EAF_Tool
                 catch (KeyNotFoundException keyNotFound)
                 {
                     // means we've reached the end of the menu items
+
                 }
                 catch (Exception ex)
                 {
@@ -317,6 +318,8 @@ namespace ZWO_EAF_Tool
             // TopMost = true;
 
             // addMenusFromSettings();
+
+            MessageBox.Show("About to call read settings");
             readSettings();
         }
 
