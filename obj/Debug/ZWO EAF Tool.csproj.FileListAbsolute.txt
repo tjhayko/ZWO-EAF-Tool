@@ -17,37 +17,28 @@ D:\Dev\ZWO EAF Tool\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.CopyComplete
 D:\Dev\ZWO EAF Tool\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.exe
 D:\Dev\ZWO EAF Tool\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.pdb
 D:\Dev\ZWO EAF Tool\ZWO EAF Tool\obj\Debug\ZWO_EAF_Tool.MainForm.resources
+D:\Dev\ZWO EAF Tool\bin\Debug\ZWO EAF Tool.exe.config
+D:\Dev\ZWO EAF Tool\bin\Debug\ZWO EAF Tool.exe.manifest
+D:\Dev\ZWO EAF Tool\bin\Debug\ZWO EAF Tool.application
 D:\Dev\ZWO EAF Tool\bin\Debug\ZWO EAF Tool.exe
 D:\Dev\ZWO EAF Tool\bin\Debug\ZWO EAF Tool.pdb
-D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.DeviceInterfaces.dll
-D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Attributes.dll
-D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Utilities.dll
-D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Exceptions.dll
-D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.DeviceInterfaces.xml
-D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Attributes.xml
-D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Utilities.xml
-D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Exceptions.xml
-D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.AssemblyReference.cache
-D:\Dev\ZWO EAF Tool\obj\Debug\ZWO_EAF_Tool.MainForm.resources
-D:\Dev\ZWO EAF Tool\obj\Debug\ZWO_EAF_Tool.Properties.Resources.resources
-D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.GenerateResource.cache
-D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.CoreCompileInputs.cache
-D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.CopyComplete
-D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.exe
-D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.pdb
-D:\Dev\ZWO EAF Tool\obj\Debug\GitInfo.cache
-D:\Dev\ZWO EAF Tool\obj\Debug\ZWO_EAF_Tool.AddBookmark.resources
-D:\Dev\ZWO EAF Tool\bin\Debug\ZWO EAF Tool.exe.config
+D:\Dev\ZWO EAF Tool\bin\Debug\Devlooped.SponsorLink.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Buffers.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Memory.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Net.Http.Json.dll
+D:\Dev\ZWO EAF Tool\bin\Debug\System.Net.Http.WinHttpHandler.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Numerics.Vectors.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Text.Encodings.Web.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Text.Json.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Threading.Tasks.Extensions.dll
 D:\Dev\ZWO EAF Tool\bin\Debug\System.ValueTuple.dll
+D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.DeviceInterfaces.dll
+D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Attributes.dll
+D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Utilities.dll
+D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Exceptions.dll
+D:\Dev\ZWO EAF Tool\bin\Debug\Devlooped.SponsorLink.xml
 D:\Dev\ZWO EAF Tool\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Buffers.xml
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Memory.xml
@@ -58,9 +49,22 @@ D:\Dev\ZWO EAF Tool\bin\Debug\System.Text.Encodings.Web.xml
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Text.Json.xml
 D:\Dev\ZWO EAF Tool\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\Dev\ZWO EAF Tool\bin\Debug\System.ValueTuple.xml
+D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.DeviceInterfaces.xml
+D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Attributes.xml
+D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Utilities.xml
+D:\Dev\ZWO EAF Tool\bin\Debug\ASCOM.Exceptions.xml
+D:\Dev\ZWO EAF Tool\bin\Debug\es\Devlooped.SponsorLink.resources.dll
+D:\Dev\ZWO EAF Tool\obj\Debug\GitInfo.cache
+D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.AssemblyReference.cache
 D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.SuggestedBindingRedirects.cache
+D:\Dev\ZWO EAF Tool\obj\Debug\ZWO_EAF_Tool.AddBookmark.resources
 D:\Dev\ZWO EAF Tool\obj\Debug\ZWO_EAF_Tool.EditBookmarks.resources
-D:\Dev\ZWO EAF Tool\bin\Debug\ZWO EAF Tool.exe.manifest
-D:\Dev\ZWO EAF Tool\bin\Debug\ZWO EAF Tool.application
+D:\Dev\ZWO EAF Tool\obj\Debug\ZWO_EAF_Tool.MainForm.resources
+D:\Dev\ZWO EAF Tool\obj\Debug\ZWO_EAF_Tool.Properties.Resources.resources
+D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.GenerateResource.cache
+D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.CoreCompileInputs.cache
 D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.exe.manifest
 D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.application
+D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.csproj.CopyComplete
+D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.exe
+D:\Dev\ZWO EAF Tool\obj\Debug\ZWO EAF Tool.pdb

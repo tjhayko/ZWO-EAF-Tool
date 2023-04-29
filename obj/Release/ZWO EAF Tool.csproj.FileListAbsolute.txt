@@ -64,3 +64,7 @@ D:\Dev\ZWO EAF Tool\bin\Release\ZWO EAF Tool.exe.manifest
 D:\Dev\ZWO EAF Tool\bin\Release\ZWO EAF Tool.application
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.exe.manifest
 D:\Dev\ZWO EAF Tool\obj\Release\ZWO EAF Tool.application
+D:\Dev\ZWO EAF Tool\bin\Release\Devlooped.SponsorLink.dll
+D:\Dev\ZWO EAF Tool\bin\Release\System.Net.Http.WinHttpHandler.dll
+D:\Dev\ZWO EAF Tool\bin\Release\Devlooped.SponsorLink.xml
+D:\Dev\ZWO EAF Tool\bin\Release\es\Devlooped.SponsorLink.resources.dll

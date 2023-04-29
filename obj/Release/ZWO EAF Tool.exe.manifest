@@ -102,6 +102,30 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Devlooped.SponsorLink.dll" size="52224">
+      <assemblyIdentity name="Devlooped.SponsorLink" version="0.10.3.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>sUbaT2O53m3VCnXOy7oYKKya0xDPSDE3NYVcsZoTkFs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="es\Devlooped.SponsorLink.resources.dll" size="7168">
+      <assemblyIdentity name="Devlooped.SponsorLink.resources" version="0.10.3.0" language="es" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>EpsNswfJK7sy4NU/cBz5vep6WBx69dz0e/zdoEfmE14=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.Bcl.AsyncInterfaces.dll" size="26752">
       <assemblyIdentity name="Microsoft.Bcl.AsyncInterfaces" version="7.0.0.0" publicKeyToken="CC7B13FFCD2DDD51" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -138,14 +162,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Net.Http.Json.dll" size="65152">
-      <assemblyIdentity name="System.Net.Http.Json" version="7.0.0.1" publicKeyToken="CC7B13FFCD2DDD51" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Net.Http.Json.dll" size="65144">
+      <assemblyIdentity name="System.Net.Http.Json" version="7.0.0.0" publicKeyToken="CC7B13FFCD2DDD51" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>sRSBRv8Lar+RULbd0KlggU+wNEwB36wvN0A2IgJkAv4=</dsig:DigestValue>
+        <dsig:DigestValue>McWyRKuGEwyhC6C+bsr27x0C1xWt4WjUOTA6onqc4eU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Net.Http.WinHttpHandler.dll" size="136336">
+      <assemblyIdentity name="System.Net.Http.WinHttpHandler" version="7.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>/7BgV+kX+kPIMif0g2MNGb3youGMZRqrjnvahHlpNyc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -229,35 +265,35 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>EYQlonJiSAWob4EUcEBs/G1bDQ7j8sudUrSN7ILbpOA=</dsig:DigestValue>
+        <dsig:DigestValue>64UtoNbHxISelcwJoeekYJoSO689mh+QB9jSrlG+uOs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="EAF-Tool-setup.exe" size="2060980">
+  <file name="EAF-Tool-setup.exe" size="2565003">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>aZ8pPMD7Y4EfM64JZxuNcyoaRyS5jekgiet+GuugTN0=</dsig:DigestValue>
+      <dsig:DigestValue>GOR5i8X9wHLWqs9mHDZXNMWxQznGCr/TENhg9zrExzY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Installer\ZWO EAF Tool Installer.iss" size="5634">
+  <file name="Installer\ZWO EAF Tool Installer.iss" size="5838">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>QEnDt1YwkZ9JavXy7E3Ar2hnwQtbYcu8aTQ9Hp+g0oY=</dsig:DigestValue>
+      <dsig:DigestValue>Ogoh55OVKgPN8UaZl+lCc6+g7CbDXaa5AuARFM75O4U=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ZWO EAF Tool.exe.config" size="538">
+  <file name="ZWO EAF Tool.exe.config" size="784">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>fPZ7/pbxYfh748wCJQa87XB6dkMjuHkFnFAaRMeHueM=</dsig:DigestValue>
+      <dsig:DigestValue>F5rUeKH0vgHnNMFWLSMAn5WZc/n1vMHmfCjo87ssVAc=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

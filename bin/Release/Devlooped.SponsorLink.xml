@@ -1,0 +1,873 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Devlooped.SponsorLink</name>
+    </assembly>
+    <members>
+        <member name="T:Devlooped.DiagnosticExtensions">
+            <summary>
+            Adds diagnostic mutating extensions.
+            </summary>
+        </member>
+        <member name="M:Devlooped.DiagnosticExtensions.IsKind(Microsoft.CodeAnalysis.DiagnosticDescriptor,Devlooped.DiagnosticKind)">
+            <summary>
+            Checks whether the given <paramref name="descriptor"/> will be used for the given 
+            <paramref name="kind"/> diagnostic kind when the default <see cref="M:Devlooped.SponsorLink.OnDiagnostic(System.String,Devlooped.DiagnosticKind)"/>
+            executes.
+            </summary>
+        </member>
+        <member name="M:Devlooped.DiagnosticExtensions.With(Microsoft.CodeAnalysis.DiagnosticDescriptor,System.String,Microsoft.CodeAnalysis.LocalizableString,Microsoft.CodeAnalysis.LocalizableString,Microsoft.CodeAnalysis.LocalizableString,System.String)">
+            <summary>
+            Creates a copy of the given <paramref name="descriptor"/> with selected values replaced.
+            </summary>
+            <param name="descriptor">The original descriptor.</param>
+            <param name="id">A unique identifier for the diagnostic. For example, code analysis diagnostic ID "CA1001".</param>
+            <param name="title">A short localizable title describing the diagnostic. For example, for CA1001: "Types that own disposable fields should be disposable".</param>
+            <param name="messageFormat">A localizable format message string, which can be passed as the first argument to <see cref="M:System.String.Format(System.String,System.Object[])"/> when creating the diagnostic message with this descriptor.
+            For example, for CA1001: "Implement IDisposable on '{0}' because it creates members of the following IDisposable types: '{1}'."</param>
+            <param name="description">An optional longer localizable description of the diagnostic.</param>
+            <param name="helpLinkUri">An optional hyperlink that provides a more detailed description regarding the diagnostic.</param>
+        </member>
+        <member name="T:Devlooped.DiagnosticKind">
+            <summary>
+            The kind of SponsorLink diagnostic being reported.
+            </summary>
+        </member>
+        <member name="F:Devlooped.DiagnosticKind.AppNotInstalled">
+            <summary>
+            The SponsorLink GitHub is not installed on the user's personal account.
+            </summary>
+        </member>
+        <member name="F:Devlooped.DiagnosticKind.UserNotSponsoring">
+            <summary>
+            The user is not sponsoring the given sponsor account.
+            </summary>
+        </member>
+        <member name="F:Devlooped.DiagnosticKind.Thanks">
+            <summary>
+            The user has the SponsorLink GitHub app installed and is sponsoring the given sponsor account.
+            </summary>
+        </member>
+        <member name="T:Devlooped.SponsorStatus">
+            <summary>
+            The sponsoring status.
+            </summary>
+        </member>
+        <member name="F:Devlooped.SponsorStatus.AppMissing">
+            <summary>
+            The SponsorLink GitHub is not installed on the user's personal account.
+            </summary>
+        </member>
+        <member name="F:Devlooped.SponsorStatus.NotSponsoring">
+            <summary>
+            The user is not sponsoring the given sponsor account.
+            </summary>
+        </member>
+        <member name="F:Devlooped.SponsorStatus.Sponsoring">
+            <summary>
+            The user has the SponsorLink GitHub app installed and is sponsoring the given sponsor account.
+            </summary>
+        </member>
+        <member name="T:Devlooped.SponsorCheck">
+            <summary>
+            Allows directly checking the sponsor status from any consuming code, 
+            such as command line app, build task or analyzer.
+            </summary>
+        </member>
+        <member name="M:Devlooped.SponsorCheck.CheckAsync(System.String,System.String,System.String,System.String,System.String,System.Net.Http.HttpClient)">
+            <summary>
+            Checks the sponsoring status with the given parameters.
+            </summary>
+            <param name="workingDirectory">
+            The working directory to use for the check. Used to 
+            determine the git email to use, since this can be overriden 
+            per repository.</param>
+            <param name="sponsorable">The sponsor account that should be sponsored by the user.</param>
+            <param name="product">The name of the product being checked.</param>
+            <param name="packageId">Optional package identifier used for telemetry. Defaults to <paramref name="product"/>.</param>
+            <param name="version">Optional package version used for telemetry. Defaults to empty.</param>
+            <param name="http">Optional <see cref="T:System.Net.Http.HttpClient"/> with custom settings (i.e. proxy, timeout).</param>
+            <returns>The <see cref="T:Devlooped.SponsorStatus"/> or <see langword="null"/> if status cannot be 
+            checked (for example if the network is unavailable, the <paramref name="workingDirectory"/> doesn't 
+            exist or a configured git email cannot be determined for the check.</returns>
+        </member>
+        <member name="T:Devlooped.SponsorLink">
+            <summary>
+            Provides build-time checks for sponsorships. Derived classes must 
+            annotate derived classes with both <see cref="T:Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzerAttribute"/> 
+            as well as <see cref="T:Microsoft.CodeAnalysis.GeneratorAttribute"/> in order for SponsorLink to 
+            function properly.
+            </summary>
+        </member>
+        <member name="P:Devlooped.SponsorLink.Diagnostics">
+            <summary>
+            Manages the sharing and reporting of diagnostics across the source generator 
+            and the diagnostic analyzer, to avoid doing the online check more than once.
+            </summary>
+        </member>
+        <member name="M:Devlooped.SponsorLink.#ctor(System.String,System.String)">
+            <summary>
+            Initializes SponsorLink with the given sponsor account and product name, for fully 
+            customized diagnostics. You must override <see cref="P:Devlooped.SponsorLink.SupportedDiagnostics"/> and 
+            <see cref="M:Devlooped.SponsorLink.OnDiagnostic(System.String,Devlooped.DiagnosticKind)"/> for this to work.
+            </summary>
+            <param name="sponsorable">The sponsor account that users should sponsor.</param>
+            <param name="product">The name of product that is using sponsor link.</param>
+            <remarks>
+            This constructor overload allows full customization of reported diagnostics. The 
+            base class won't report anything in this case and just expose the support 
+            diagnostics from <see cref="P:Devlooped.SponsorLink.SupportedDiagnostics"/> and invoke 
+            <see cref="M:Devlooped.SponsorLink.OnDiagnostic(System.String,Devlooped.DiagnosticKind)"/> for the various supported 
+            sponsoring scenarios.
+            </remarks>
+        </member>
+        <member name="M:Devlooped.SponsorLink.#ctor(Devlooped.SponsorLinkSettings)">
+            <summary>
+            Initializes the analyzer with the default behavior configured with the 
+            given settings. The specific diagnostics supported and reported are 
+            managed by the base class and require no additional overrides or 
+            customizations.
+            </summary>
+            <param name="settings">The settings for the analyzer and generator.</param>
+        </member>
+        <member name="P:Devlooped.SponsorLink.SupportedDiagnostics">
+            <summary>
+            Exposes the supported diagnostics.
+            </summary>
+        </member>
+        <member name="M:Devlooped.SponsorLink.Initialize(Microsoft.CodeAnalysis.Diagnostics.AnalysisContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Devlooped.SponsorLink.OnDiagnostic(System.String,Devlooped.DiagnosticKind)">
+            <summary>
+            Performs an action when the given diagnostic <paramref name="kind"/> is verified for 
+            the current user. If an actual diagnostic should be reported, a non-null value can be 
+            returned.
+            </summary>
+            <remarks>
+            Returns null if no diagnostics should be reported for the given diagnostic <paramref name="kind"/>.
+            </remarks>
+        </member>
+        <member name="M:Devlooped.SponsorLink.CheckAndReport(Microsoft.CodeAnalysis.Diagnostics.CompilationAnalysisContext,Devlooped.SponsorLink.BuildInfo)">
+            <summary>
+            Runs a full check against URLs for sponsorship status. Only runs on full, editor builds.
+            </summary>
+        </member>
+        <member name="M:Devlooped.SponsorLink.ReportExisting(Microsoft.CodeAnalysis.Diagnostics.CompilationAnalysisContext,System.String)">
+            <summary>
+            In DTB, we merely re-surface diagnostics that were previously generated in a 
+            full build. This keeps the checks minimally impactful while still being visible.
+            </summary>
+        </member>
+        <member name="T:Devlooped.SponsorLink.BuildInfo">
+            <summary>
+            Provides information about the build that was checked for sponsor linking.
+            Used internally only for now.
+            </summary>
+        </member>
+        <member name="P:Devlooped.SponsorLink.BuildInfo.ProjectPath">
+            <summary>
+            The full path of the project being built.
+            </summary>
+        </member>
+        <member name="P:Devlooped.SponsorLink.BuildInfo.DesignTimeBuild">
+            <summary>
+            Whether the build is a design-time build.
+            </summary>
+        </member>
+        <member name="P:Devlooped.SponsorLink.BuildInfo.ForceRun">
+            <summary>
+            Whether to always run the check and report issues.
+            </summary>
+        </member>
+        <member name="P:Devlooped.SponsorLink.BuildInfo.InstallTime">
+            <summary>
+            The installation/restore time of SponsorLink.
+            </summary>
+        </member>
+        <member name="T:Devlooped.SponsorLinkSettings">
+            <summary>
+            Configures the default behavior of the <see cref="T:Devlooped.SponsorLink"/> analyzer/generator.
+            </summary>
+            <remarks>
+            The default behavior configured by this class is applied in the 
+            <see cref="M:Devlooped.SponsorLink.OnDiagnostic(System.String,Devlooped.DiagnosticKind)"/> virtual method. 
+            If overriden, none of these settings are actually used.
+            </remarks>
+        </member>
+        <member name="M:Devlooped.SponsorLinkSettings.Create(System.String,System.String)">
+            <summary>
+            Creates the settings for <see cref="T:Devlooped.SponsorLink"/> with the given values.
+            </summary>
+            <param name="sponsorable">The sponsor account to check for sponsorships.</param>
+            <param name="product">The product that uses SponsorLink. Used in diagnostics to clarify the product requesting the sponsor link check.</param>
+        </member>
+        <member name="M:Devlooped.SponsorLinkSettings.Create(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Creates the settings for <see cref="T:Devlooped.SponsorLink"/> with the given values.
+            </summary>
+            <param name="sponsorable">The sponsor account to check for sponsorships.</param>
+            <param name="product">The product that uses SponsorLink. Used in diagnostics to clarify the product requesting the sponsor link check.</param>
+            <param name="packageId">Optional NuGet package identifier of the product performing the check. Defaults to <paramref name="product"/>. 
+            Used to determine installation time of the product and avoid pausing builds or emitting warnings during the 
+            quiet days after install (configurable using another overload).</param>
+            <param name="diagnosticsIdPrefix">Prefix to use for diagnostics with numbers <c>02,03,04</c> reported by default. If not provided, 
+            a default one is determined from the <paramref name="sponsorable"/> and <paramref name="product"/> values.</param>
+            <param name="pauseMin">Min random milliseconds to apply during build for non-sponsoring users. Use 0 for no pause.</param>
+            <param name="pauseMax">Max random milliseconds to apply during build for non-sponsoring users. Use 0 for no pause.</param>
+        </member>
+        <member name="M:Devlooped.SponsorLinkSettings.Create(System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Creates the settings for <see cref="T:Devlooped.SponsorLink"/> with the given values.
+            </summary>
+            <param name="sponsorable">The sponsor account to check for sponsorships.</param>
+            <param name="product">The product that uses SponsorLink. Used in diagnostics to clarify the product requesting the sponsor link check.</param>
+            <param name="packageId">Optional NuGet package identifier of the product performing the check. Defaults to <paramref name="product"/>. 
+            Used to determine installation time of the product and avoid pausing builds or emitting warnings during the 
+            <paramref name="quietDays"/> after install.</param>
+            <param name="version">Optional product or package version.</param>
+            <param name="diagnosticsIdPrefix">Prefix to use for diagnostics with numbers <c>02,03,04</c> reported by default. If not provided, 
+            a default one is determined from the <paramref name="sponsorable"/> and <paramref name="product"/> values.</param>
+            <param name="pauseMin">Min random milliseconds to apply during build for non-sponsoring users. Use 0 for no pause.</param>
+            <param name="pauseMax">Max random milliseconds to apply during build for non-sponsoring users. Use 0 for no pause.</param>
+            <param name="quietDays">Optional days to keep warnings quiet so the user has a chance to test the product undisturbed.</param>
+        </member>
+        <member name="M:Devlooped.SponsorLinkSettings.Create(System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32},System.Boolean)">
+            <summary>
+            Creates the settings for <see cref="T:Devlooped.SponsorLink"/> with the given values.
+            </summary>
+            <param name="sponsorable">The sponsor account to check for sponsorships.</param>
+            <param name="product">The product that uses SponsorLink. Used in diagnostics to clarify the product requesting the sponsor link check.</param>
+            <param name="packageId">Optional NuGet package identifier of the product performing the check. Defaults to <paramref name="product"/>. 
+            Used to determine installation time of the product and avoid pausing builds or emitting warnings during the 
+            <paramref name="quietDays"/> after install.</param>
+            <param name="version">Optional product or package version.</param>
+            <param name="diagnosticsIdPrefix">Prefix to use for diagnostics with numbers <c>02,03,04</c> reported by default. If not provided, 
+            a default one is determined from the <paramref name="sponsorable"/> and <paramref name="product"/> values.</param>
+            <param name="pauseMin">Min random milliseconds to apply during build for non-sponsoring users. Use 0 for no pause.</param>
+            <param name="pauseMax">Max random milliseconds to apply during build for non-sponsoring users. Use 0 for no pause.</param>
+            <param name="quietDays">Optional days to keep warnings quiet so the user has a chance to test the product undisturbed.</param>
+            <param name="transitive">Whether the check is transitive (enforced when dependency is indirect in a project).</param>
+        </member>
+        <member name="P:Devlooped.SponsorLinkSettings.Sponsorable">
+            <summary>
+            The sponsor account to check for sponsorships.
+            </summary>
+        </member>
+        <member name="P:Devlooped.SponsorLinkSettings.Product">
+            <summary>
+            The product that uses SponsorLink. Used in diagnostics to clarify the product requesting the sponsor link check.
+            </summary>
+        </member>
+        <member name="P:Devlooped.SponsorLinkSettings.SupportedDiagnostics">
+            <summary>
+            The supported diagnostics used by sponsorlink when reporting diagnostics.
+            </summary>
+        </member>
+        <member name="T:System.Base62">
+            <summary>
+            Inspired in a bunch of searches, samples and snippets on various languages 
+            and blogs and what-not on doing URL shortering :), heavily tweaked to make 
+            it fully idiomatic in C#.
+            </summary>
+        </member>
+        <member name="M:System.Base62.Encode(System.Numerics.BigInteger)">
+            <summary>
+            Encodes a numeric value into a base62 string.
+            </summary>
+        </member>
+        <member name="M:System.Base62.Decode(System.String)">
+            <summary>
+            Decodes a base62 string into its original numeric value.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
+            <summary>
+            Specifies that null is allowed as an input even if the corresponding type disallows it.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute">
+            <summary>
+            Specifies that null is disallowed as an input even if the corresponding type allows it.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute">
+            <summary>
+            Applied to a method that will never return under any circumstance.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute">
+            <summary>
+            Specifies that the method will not return if the associated Boolean parameter is passed the specified value.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.#ctor(System.Boolean)">
+            <summary>
+            Initializes the attribute with the specified parameter value.
+            </summary>
+            <param name="parameterValue">
+            The condition parameter value. Code after the method will be considered unreachable
+            by diagnostics if the argument to the associated parameter matches this value.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.ParameterValue">
+            <summary>
+            Gets the condition parameter value.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute">
+            <summary>
+            Specifies that an output may be null even if the corresponding type disallows it.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute">
+            <summary>
+            Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue"/>, the parameter may be null even if the corresponding type disallows it.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>
+            Initializes the attribute with the specified return value condition.
+            </summary>
+            <param name="returnValue">The return value condition. If the method returns this value, the associated parameter may be null.</param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue">
+            <summary>
+            Gets the return value condition.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute">
+            <summary>
+            Specifies that the method or property will ensure that the listed field and property members have not-null values.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String)">
+            <summary>
+            Initializes the attribute with a field or property member.
+            </summary>
+            <param name="member">The field or property member that is promised to be not-null.</param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String[])">
+            <summary>
+            Initializes the attribute with the list of field and property members.
+            </summary>
+            <param name="members">The list of field and property members that are promised to be not-null.</param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.Members">
+            <summary>
+            Gets field or property member names.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute">
+            <summary>
+            Specifies that the method or property will ensure that the listed field and property
+            members have not-null values when returning with the specified return value condition.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String)">
+            <summary>
+            Initializes the attribute with the specified return value condition and a field or property member.
+            </summary>
+            <param name="returnValue">The return value condition. If the method returns this value, the associated parameter will not be null.</param>
+            <param name="member">The field or property member that is promised to be not-null.</param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String[])">
+            <summary>
+            Initializes the attribute with the specified return value condition and list of field and property members.
+            </summary>
+            <param name="returnValue">The return value condition. If the method returns this value, the associated parameter will not be null.</param>
+            <param name="members">The list of field and property members that are promised to be not-null.</param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.ReturnValue">
+            <summary>
+            Gets the return value condition.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.Members">
+            <summary>
+            Gets field or property member names.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullAttribute">
+            <summary>
+            Specifies that an output will not be null even if the corresponding type allows it.
+            Specifies that an input argument was not null when the call returns.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute">
+            <summary>
+            Specifies that the output will be non-null if the named parameter is non-null.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.#ctor(System.String)">
+            <summary>
+            Initializes the attribute with the associated parameter name.
+            </summary>
+            <param name="parameterName">The associated parameter name. The output will be non-null if the argument to the parameter specified is non-null.</param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.ParameterName">
+            <summary>
+            Gets the associated parameter name.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute">
+            <summary>
+            Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>
+            Initializes the attribute with the specified return value condition.
+            </summary>
+            <param name="returnValue">The return value condition. If the method returns this value, the associated parameter will not be null.</param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute">
+            <summary>
+            Specifies that this constructor sets all required members for the current type,
+            and callers do not need to set any required members themselves.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute">
+            <summary>
+            Specifies the syntax used in a string.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.#ctor(System.String)">
+            <summary>
+            Initializes the <see cref="T:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute"/> with the identifier of the syntax used.
+            </summary>
+            <param name="syntax">The syntax identifier.</param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.#ctor(System.String,System.Object[])">
+            <summary>Initializes the <see cref="T:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute"/> with the identifier of the syntax used.</summary>
+            <param name="syntax">The syntax identifier.</param>
+            <param name="arguments">Optional arguments associated with the specific syntax employed.</param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Syntax">
+            <summary>Gets the identifier of the syntax used.</summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Arguments">
+            <summary>Optional arguments associated with the specific syntax employed.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.CompositeFormat">
+            <summary>The syntax identifier for strings containing composite formats for string formatting.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.DateOnlyFormat">
+            <summary>The syntax identifier for strings containing date format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.DateTimeFormat">
+            <summary>The syntax identifier for strings containing date and time format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.EnumFormat">
+            <summary>The syntax identifier for strings containing <see cref="T:System.Enum"/> format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.GuidFormat">
+            <summary>The syntax identifier for strings containing <see cref="T:System.Guid"/> format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Json">
+            <summary>The syntax identifier for strings containing JavaScript Object Notation (JSON).</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.NumericFormat">
+            <summary>The syntax identifier for strings containing numeric format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Regex">
+            <summary>The syntax identifier for strings containing regular expressions.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.TimeOnlyFormat">
+            <summary>The syntax identifier for strings containing time format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.TimeSpanFormat">
+            <summary>The syntax identifier for strings containing <see cref="T:System.TimeSpan"/> format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Uri">
+            <summary>The syntax identifier for strings containing URIs.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Xml">
+            <summary>The syntax identifier for strings containing XML.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.UnscopedRefAttribute">
+            <summary>
+            Used to indicate a byref escapes and is not scoped.
+            </summary>
+            <remarks>
+            <para>
+            There are several cases where the C# compiler treats a <see langword="ref"/> as implicitly
+            <see langword="scoped"/> - where the compiler does not allow the <see langword="ref"/> to escape the method.
+            </para>
+            <para>
+            For example:
+            <list type="number">
+                <item><see langword="this"/> for <see langword="struct"/> instance methods.</item>
+                <item><see langword="ref"/> parameters that refer to <see langword="ref"/> <see langword="struct"/> types.</item>
+                <item><see langword="out"/> parameters.</item>
+            </list>
+            </para>
+            <para>
+            This attribute is used in those instances where the <see langword="ref"/> should be allowed to escape.
+            </para>
+            <para>
+            Applying this attribute, in any form, has impact on consumers of the applicable API. It is necessary for
+            API authors to understand the lifetime implications of applying this attribute and how it may impact their users.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:System.Index">
+            <summary>Represent a type can be used to index a collection either from the start or the end.</summary>
+            <remarks>
+            Index is used by the C# compiler to support the new index syntax
+            <code>
+            int[] someArray = new int[5] { 1, 2, 3, 4, 5 } ;
+            int lastElement = someArray[^1]; // lastElement = 5
+            </code>
+            </remarks>
+        </member>
+        <member name="M:System.Index.#ctor(System.Int32,System.Boolean)">
+            <summary>Construct an Index using a value and indicating if the index is from the start or from the end.</summary>
+            <param name="value">The index value. it has to be zero or positive number.</param>
+            <param name="fromEnd">Indicating if the index is from the start or from the end.</param>
+            <remarks>
+            If the Index constructed from the end, index value 1 means pointing at the last element and index value 0 means pointing at beyond last element.
+            </remarks>
+        </member>
+        <member name="P:System.Index.Start">
+            <summary>Create an Index pointing at first element.</summary>
+        </member>
+        <member name="P:System.Index.End">
+            <summary>Create an Index pointing at beyond last element.</summary>
+        </member>
+        <member name="M:System.Index.FromStart(System.Int32)">
+            <summary>Create an Index from the start at the position indicated by the value.</summary>
+            <param name="value">The index value from the start.</param>
+        </member>
+        <member name="M:System.Index.FromEnd(System.Int32)">
+            <summary>Create an Index from the end at the position indicated by the value.</summary>
+            <param name="value">The index value from the end.</param>
+        </member>
+        <member name="P:System.Index.Value">
+            <summary>Returns the index value.</summary>
+        </member>
+        <member name="P:System.Index.IsFromEnd">
+            <summary>Indicates whether the index is from the start or the end.</summary>
+        </member>
+        <member name="M:System.Index.GetOffset(System.Int32)">
+            <summary>Calculate the offset from the start using the giving collection length.</summary>
+            <param name="length">The length of the collection that the Index will be used with. length has to be a positive value</param>
+            <remarks>
+            For performance reason, we don't validate the input length parameter and the returned offset value against negative values.
+            we don't validate either the returned offset is greater than the input length.
+            It is expected Index will be used with collections which always have non negative length/count. If the returned offset is negative and
+            then used to index a collection will get out of range exception which will be same affect as the validation.
+            </remarks>
+        </member>
+        <member name="M:System.Index.Equals(System.Object)">
+            <summary>Indicates whether the current Index object is equal to another object of the same type.</summary>
+            <param name="value">An object to compare with this object</param>
+        </member>
+        <member name="M:System.Index.Equals(System.Index)">
+            <summary>Indicates whether the current Index object is equal to another Index object.</summary>
+            <param name="other">An object to compare with this object</param>
+        </member>
+        <member name="M:System.Index.GetHashCode">
+            <summary>Returns the hash code for this instance.</summary>
+        </member>
+        <member name="M:System.Index.op_Implicit(System.Int32)~System.Index">
+            <summary>Converts integer number to an Index.</summary>
+        </member>
+        <member name="M:System.Index.ToString">
+            <summary>Converts the value of the current Index object to its equivalent string representation.</summary>
+        </member>
+        <member name="T:System.Range">
+            <summary>Represent a range has start and end indexes.</summary>
+            <remarks>
+            Range is used by the C# compiler to support the range syntax.
+            <code>
+            int[] someArray = new int[5] { 1, 2, 3, 4, 5 };
+            int[] subArray1 = someArray[0..2]; // { 1, 2 }
+            int[] subArray2 = someArray[1..^0]; // { 2, 3, 4, 5 }
+            </code>
+            </remarks>
+        </member>
+        <member name="P:System.Range.Start">
+            <summary>Represent the inclusive start index of the Range.</summary>
+        </member>
+        <member name="P:System.Range.End">
+            <summary>Represent the exclusive end index of the Range.</summary>
+        </member>
+        <member name="M:System.Range.#ctor(System.Index,System.Index)">
+            <summary>Construct a Range object using the start and end indexes.</summary>
+            <param name="start">Represent the inclusive start index of the range.</param>
+            <param name="end">Represent the exclusive end index of the range.</param>
+        </member>
+        <member name="M:System.Range.Equals(System.Object)">
+            <summary>Indicates whether the current Range object is equal to another object of the same type.</summary>
+            <param name="value">An object to compare with this object</param>
+        </member>
+        <member name="M:System.Range.Equals(System.Range)">
+            <summary>Indicates whether the current Range object is equal to another Range object.</summary>
+            <param name="other">An object to compare with this object</param>
+        </member>
+        <member name="M:System.Range.GetHashCode">
+            <summary>Returns the hash code for this instance.</summary>
+        </member>
+        <member name="M:System.Range.ToString">
+            <summary>Converts the value of the current Range object to its equivalent string representation.</summary>
+        </member>
+        <member name="M:System.Range.StartAt(System.Index)">
+            <summary>Create a Range object starting from start index to the end of the collection.</summary>
+        </member>
+        <member name="M:System.Range.EndAt(System.Index)">
+            <summary>Create a Range object starting from first element in the collection to the end Index.</summary>
+        </member>
+        <member name="P:System.Range.All">
+            <summary>Create a Range object starting from first element to the end.</summary>
+        </member>
+        <member name="M:System.Range.GetOffsetAndLength(System.Int32)">
+            <summary>Calculate the start offset and length of range object using a collection length.</summary>
+            <param name="length">The length of the collection that the range will be used with. length has to be a positive value.</param>
+            <remarks>
+            For performance reason, we don't validate the input length parameter against negative values.
+            It is expected Range will be used with collections which always have non negative length/count.
+            We validate the range is inside the length scope though.
+            </remarks>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.CallerArgumentExpressionAttribute">
+            <summary>
+            An attribute that allows parameters to receive the expression of other parameters.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.CompilerServices.CallerArgumentExpressionAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"/> class.
+            </summary>
+            <param name="parameterName">The condition parameter value.</param>
+        </member>
+        <member name="P:System.Runtime.CompilerServices.CallerArgumentExpressionAttribute.ParameterName">
+            <summary>
+            Gets the parameter name the expression is retrieved from.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute">
+            <summary>
+            Indicates that compiler support for a particular feature is required for the location where this attribute is applied.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute.#ctor(System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute"/> type.
+            </summary>
+            <param name="featureName">The name of the feature to indicate.</param>
+        </member>
+        <member name="P:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute.FeatureName">
+            <summary>
+            The name of the compiler feature.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute.IsOptional">
+            <summary>
+            If true, the compiler can choose to allow access to the location where this attribute is applied if it does not understand <see cref="P:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute.FeatureName"/>.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute.RefStructs">
+            <summary>
+            The <see cref="P:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute.FeatureName"/> used for the ref structs C# feature.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute.RequiredMembers">
+            <summary>
+            The <see cref="P:System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute.FeatureName"/> used for the required members C# feature.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.InterpolatedStringHandlerArgumentAttribute">
+            <summary>
+            Indicates which arguments to a method involving an interpolated string handler should be passed to that handler.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.CompilerServices.InterpolatedStringHandlerArgumentAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.CompilerServices.InterpolatedStringHandlerArgumentAttribute"/> class.
+            </summary>
+            <param name="argument">The name of the argument that should be passed to the handler.</param>
+            <remarks><see langword="null"/> may be used as the name of the receiver in an instance method.</remarks>
+        </member>
+        <member name="M:System.Runtime.CompilerServices.InterpolatedStringHandlerArgumentAttribute.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.CompilerServices.InterpolatedStringHandlerArgumentAttribute"/> class.
+            </summary>
+            <param name="arguments">The names of the arguments that should be passed to the handler.</param>
+            <remarks><see langword="null"/> may be used as the name of the receiver in an instance method.</remarks>
+        </member>
+        <member name="P:System.Runtime.CompilerServices.InterpolatedStringHandlerArgumentAttribute.Arguments">
+            <summary>
+            Gets the names of the arguments that should be passed to the handler.
+            </summary>
+            <remarks><see langword="null"/> may be used as the name of the receiver in an instance method.</remarks>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.InterpolatedStringHandlerAttribute">
+            <summary>
+            Indicates the attributed type is to be used as an interpolated string handler.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.IsExternalInit">
+            <summary>
+            Reserved to be used by the compiler for tracking metadata.
+            This class should not be used by developers in source code.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.ModuleInitializerAttribute">
+             <summary>
+             Used to indicate to the compiler that a method should be called
+             in its containing module's initializer.
+             </summary>
+             <remarks>
+             When one or more valid methods
+             with this attribute are found in a compilation, the compiler will
+             emit a module initializer which calls each of the attributed methods.
+            
+             Certain requirements are imposed on any method targeted with this attribute:
+             - The method must be `static`.
+             - The method must be an ordinary member method, as opposed to a property accessor, constructor, local function, etc.
+             - The method must be parameterless.
+             - The method must return `void`.
+             - The method must not be generic or be contained in a generic type.
+             - The method's effective accessibility must be `internal` or `public`.
+            
+             The specification for module initializers in the .NET runtime can be found here:
+             https://github.com/dotnet/runtime/blob/main/docs/design/specs/Ecma-335-Augments.md#module-initializer
+             </remarks>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.RequiredMemberAttribute">
+            <summary>
+            Specifies that a type has required members or that a member is required.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.SkipLocalsInitAttribute">
+            <summary>
+            Used to indicate to the compiler that the <c>.locals init</c> flag should not be set in method headers.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute"/> class with the specified message.
+            </summary>
+            <param name="message">An optional message associated with this attribute instance.</param>
+        </member>
+        <member name="P:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute.Message">
+            <summary>
+            Returns the optional message associated with this attribute instance.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute.Url">
+            <summary>
+            Returns the optional URL associated with this attribute instance.
+            </summary>
+        </member>
+        <member name="T:ThisAssembly">
+            <summary>
+            Provides access to the current assembly information as pure constants, 
+             without requiring reflection.
+            </summary>
+            <summary>
+            Provides access to the current assembly information as pure constants, 
+             without requiring reflection.
+            </summary>
+        </member>
+        <member name="T:ThisAssembly.Strings">
+            <summary>
+            Access the strings provided by resource files in the project.
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.AppNotInstalled.Description">
+            <summary>
+            = "Installing the SponsorLink GitHub app ensures that your sponsorship is properly attributed to you."
+            </summary>
+        </member>
+        <member name="M:ThisAssembly.Strings.AppNotInstalled.Message(System.Object,System.Object,System.Object)">
+            <summary>
+            = "{0} uses SponsorLink to properly attribute your sponsorship with {1}. Please install the GitHub app at https://github.com/apps/sponsorlink. {2}"
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.AppNotInstalled.Title">
+            <summary>
+            = "Please install the SponsorLink GitHub app 🙏"
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.UserNotSponsoring.Description">
+            <summary>
+            = "Sponsoring projects you depend on ensures they remain active, and that you get the support you need. It's also super affordable and available worldwide!"
+            </summary>
+        </member>
+        <member name="M:ThisAssembly.Strings.UserNotSponsoring.Message(System.Object,System.Object,System.Object)">
+            <summary>
+            = "Please consider supporting {0} ongoing development by sponsoring at https://github.com/sponsors/{1}. {2}"
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.UserNotSponsoring.Title">
+            <summary>
+            = "Please consider supporting the ongoing development of the project 🙏"
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.Thanks.Description">
+            <summary>
+            = "You are a true hero. Your sponsorship helps keep the project alive and thriving."
+            </summary>
+        </member>
+        <member name="M:ThisAssembly.Strings.Thanks.Message(System.Object,System.Object)">
+            <summary>
+            = "Thank you for supporting {0} with your sponsorship of {1} 💟!"
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.Thanks.Title">
+            <summary>
+            = "You are a sponsor of the project, you rock 💟!"
+            </summary>
+        </member>
+        <member name="M:ThisAssembly.Strings.BuildPaused(System.Object)">
+            <summary>
+            = "Build paused for {0}ms. This happens only once per IDE/editor session."
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.MissingDesignTimeBuild.Description">
+            <summary>
+            = "This is typically a package authoring error which can be fixed by installing the Devlooped.SponsorLink package or adding the following MSBuild item to the project: &lt;CompilerVisibleProperty Include="DesignTimeBuild" /&gt;."
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.MissingDesignTimeBuild.Message">
+            <summary>
+            = "SponsorLink analyzer did not receive the required DesignTimeBuild compiler-visible property."
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.MissingDesignTimeBuild.Title">
+            <summary>
+            = "DesignTimeBuild compiler-visible property is required"
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.MissingProject.Description">
+            <summary>
+            = "This is typically a package authoring error which can be fixed by installing the Devlooped.SponsorLink package or adding the following MSBuild item to the project: &lt;CompilerVisibleProperty Include="MSBuildProjectFullPath" /&gt;."
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.MissingProject.Message">
+            <summary>
+            = "SponsorLink analyzer did not receive the required MSBuildProjectFullPath compiler-visible property."
+            </summary>
+        </member>
+        <member name="P:ThisAssembly.Strings.MissingProject.Title">
+            <summary>
+            = "MSBuildProjectFullPath compiler-visible property is required"
+            </summary>
+        </member>
+        <member name="T:ThisAssembly.Info">
+            <summary>
+            Gets the AssemblyInfo attributes.
+            </summary>
+        </member>
+    </members>
+</doc>

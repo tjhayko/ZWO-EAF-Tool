@@ -303,6 +303,10 @@ namespace ZWO_EAF_Tool
                 {
                     // means we've reached the end of the menu items
 
+                    // Remove compiler warnings here
+
+                    string s = keyNotFound.Message;
+
                 }
                 catch (Exception ex)
                 {
@@ -319,7 +323,6 @@ namespace ZWO_EAF_Tool
 
             // addMenusFromSettings();
 
-            MessageBox.Show("About to call read settings");
             readSettings();
         }
 
@@ -655,6 +658,10 @@ namespace ZWO_EAF_Tool
 
                     moveTo(item.id, mark.position);
                 }
+                else
+                {
+                    MessageBox.Show("No focuser selected, can't move to bookmark", "ZWO EAF Tool");
+                }
             }
             else
             {
@@ -664,23 +671,6 @@ namespace ZWO_EAF_Tool
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: Save Menu Items here
-            /* List<Bookmark> list = new List<Bookmark>();
-
-            foreach (ToolStripMenuItem item in cntxtmnuBookmarks.Items)
-            {
-                if (item.Tag != null)
-                {
-                    list.Add((Bookmark)item.Tag);
-                }
-            }
-
-            string json = JsonSerializer.Serialize(list);
-
-            // MessageBox.Show("Serialized bookmark list = '" + json + "'", "Debug Message");
-
-
-            File.WriteAllText(file, json); */
 
             // Creating custom JSON object instead of serialized list work in progress
 
@@ -714,8 +704,6 @@ namespace ZWO_EAF_Tool
             }
 
             JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
-
-            MessageBox.Show(settings.ToJsonString(options));
 
             File.WriteAllText(file, settings.ToJsonString(options));
 
