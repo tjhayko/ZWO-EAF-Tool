@@ -7,14 +7,14 @@
     <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="ZWO EAF Tool.exe.manifest" size="16750">
+    <dependentAssembly dependencyType="install" codebase="ZWO EAF Tool.exe.manifest" size="17257">
       <assemblyIdentity name="ZWO EAF Tool.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>v/rYFvHofDuU2rlt3h85uosByKS7E2v0sNX1pbYdTOA=</dsig:DigestValue>
+        <dsig:DigestValue>8G6ZAEeFd/I7rWeG4n7GDWKvH/Qu1JubI7TGiTPEoyU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

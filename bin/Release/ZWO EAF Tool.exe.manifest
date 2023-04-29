@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
   <asmv1:assemblyIdentity name="ZWO EAF Tool.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="telescope-icon-24307.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
     <assemblyIdentity name="ZWO EAF Tool" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -258,24 +259,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ZWO EAF Tool.exe" size="26072">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ZWO EAF Tool.exe" size="263640">
       <assemblyIdentity name="ZWO EAF Tool" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>64UtoNbHxISelcwJoeekYJoSO689mh+QB9jSrlG+uOs=</dsig:DigestValue>
+        <dsig:DigestValue>x4qCQTOHTNmHL5uA0Xxu8zMHHw9GW8759YmsGRhHTVg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="EAF-Tool-setup.exe" size="2565003">
+  <file name="EAF-Tool-setup.exe" size="2572313">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>GOR5i8X9wHLWqs9mHDZXNMWxQznGCr/TENhg9zrExzY=</dsig:DigestValue>
+      <dsig:DigestValue>xwqZPHkIpVZxsjtz+QHo6jQI+NpN3k6hRvt2IcuHD9I=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Installer\ZWO EAF Tool Installer.iss" size="5838">
@@ -285,6 +286,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>Ogoh55OVKgPN8UaZl+lCc6+g7CbDXaa5AuARFM75O4U=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="telescope-icon-24307.ico" size="234494">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>IVP1x9MAzZe7+DWgZ7HYXndgTTiJ+BgrkJbHZ2A1xXA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="ZWO EAF Tool.exe.config" size="784">

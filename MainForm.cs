@@ -373,7 +373,6 @@ namespace ZWO_EAF_Tool
 
         private void comboBoxFocuser_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            EAFdll.EAF_ERROR_CODE eafRC;
             int pos;
 
             EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
@@ -389,8 +388,6 @@ namespace ZWO_EAF_Tool
 
         private void btnSetPosition_Click(object sender, EventArgs e)
         {
-            EAFdll.EAF_ERROR_CODE eafRC;
-
             if (comboBoxFocuser.SelectedItem != null)
             {
                 EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
@@ -414,7 +411,6 @@ namespace ZWO_EAF_Tool
 
         private void btnMoveTo_Click(object sender, EventArgs e)
         {
-            EAFdll.EAF_ERROR_CODE eafRC;
             int iNewPos = 0;
 
             if (comboBoxFocuser.SelectedItem != null)
@@ -541,7 +537,6 @@ namespace ZWO_EAF_Tool
 
         private void btnMoveDown_Click(object sender, EventArgs e)
         {
-            EAFdll.EAF_ERROR_CODE eafRC;
             int iStep;
 
             if (!Int32.TryParse(txtBoxStep.Text, out iStep))
@@ -566,7 +561,6 @@ namespace ZWO_EAF_Tool
 
         private void btnMoveUp_Click(object sender, EventArgs e)
         {
-            EAFdll.EAF_ERROR_CODE eafRC;
             int iStep;
 
             if (!Int32.TryParse(txtBoxStep.Text, out iStep))
@@ -639,7 +633,7 @@ namespace ZWO_EAF_Tool
             Form edit;
 
 
-            edit = new EditBookmarks();
+            edit = new EditBookmarks(cntxtmnuBookmarks);
 
             edit.ShowDialog();
         }

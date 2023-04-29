@@ -66,6 +66,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>telescope-icon-24307.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ASCOM.EAF">
       <HintPath>..\..\ZWO EAF Long Range\ASCOM.ZWOEAF-LongRange\References\ASCOM.EAF.dll</HintPath>
@@ -180,6 +183,7 @@
   <ItemGroup>
     <Content Include="EAF-Tool-setup.exe" />
     <Content Include="Installer\ZWO EAF Tool Installer.iss" />
+    <Content Include="telescope-icon-24307.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
