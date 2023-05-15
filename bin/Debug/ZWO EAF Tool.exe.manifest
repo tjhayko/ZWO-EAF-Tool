@@ -259,24 +259,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ZWO EAF Tool.exe" size="265176">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ZWO EAF Tool.exe" size="266712">
       <assemblyIdentity name="ZWO EAF Tool" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>GxE3Tfaz/fUi7JGCifg+R/EU2X7YJmFCOR6KWmHIcfk=</dsig:DigestValue>
+        <dsig:DigestValue>IeJGi1MHq2zTegx8UhVOu/VbLD2JQuJnQVRNi/W8nIU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="EAF-Tool-setup.exe" size="2565505">
+  <file name="EAF-Tool-setup.exe" size="2572388">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>FOIfXBGNq92oA14+ySNlOs9pWTN/1Oz8QPDriSXXzxY=</dsig:DigestValue>
+      <dsig:DigestValue>8tKVU5NKqonsbj7Xu9uSDhzA5U3Swk04MfCOsII1z78=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Installer\ZWO EAF Tool Installer.iss" size="5838">

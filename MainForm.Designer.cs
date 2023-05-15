@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxFocuser = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,7 +43,6 @@
             this.chkStayOnTop = new System.Windows.Forms.CheckBox();
             this.cntxtmnuBookmarks = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuAddBookmark = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuEditBookmarks = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMoveDown = new System.Windows.Forms.Button();
             this.btnMoveUp = new System.Windows.Forms.Button();
@@ -50,7 +50,10 @@
             this.txtBoxStep = new System.Windows.Forms.MaskedTextBox();
             this.btnStop = new System.Windows.Forms.Button();
             this.splitButton1 = new ZWO_EAF_Tool.SplitButton();
+            this.datagridBookmarks = new System.Windows.Forms.DataGridView();
+            this.btnEditBookmarks = new System.Windows.Forms.Button();
             this.cntxtmnuBookmarks.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridBookmarks)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -94,7 +97,7 @@
             // btnMoveTo
             // 
             this.btnMoveTo.Enabled = false;
-            this.btnMoveTo.Location = new System.Drawing.Point(232, 86);
+            this.btnMoveTo.Location = new System.Drawing.Point(239, 86);
             this.btnMoveTo.Name = "btnMoveTo";
             this.btnMoveTo.Size = new System.Drawing.Size(60, 34);
             this.btnMoveTo.TabIndex = 7;
@@ -158,10 +161,9 @@
             this.cntxtmnuBookmarks.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.cntxtmnuBookmarks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuAddBookmark,
-            this.mnuEditBookmarks,
             this.saveToolStripMenuItem});
             this.cntxtmnuBookmarks.Name = "contextMenuStrip1";
-            this.cntxtmnuBookmarks.Size = new System.Drawing.Size(216, 100);
+            this.cntxtmnuBookmarks.Size = new System.Drawing.Size(216, 68);
             this.cntxtmnuBookmarks.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cntxtmnuBookmarks_ItemClicked);
             // 
             // mnuAddBookmark
@@ -170,13 +172,6 @@
             this.mnuAddBookmark.Size = new System.Drawing.Size(215, 32);
             this.mnuAddBookmark.Text = "Add";
             this.mnuAddBookmark.Click += new System.EventHandler(this.mnuAddBookmark_Click);
-            // 
-            // mnuEditBookmarks
-            // 
-            this.mnuEditBookmarks.Name = "mnuEditBookmarks";
-            this.mnuEditBookmarks.Size = new System.Drawing.Size(215, 32);
-            this.mnuEditBookmarks.Text = "Edit/Delete";
-            this.mnuEditBookmarks.Click += new System.EventHandler(this.mnuEditBookmarks_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -226,7 +221,7 @@
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(298, 87);
+            this.btnStop.Location = new System.Drawing.Point(312, 87);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(60, 34);
             this.btnStop.TabIndex = 8;
@@ -245,11 +240,39 @@
             this.splitButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.splitButton1.UseVisualStyleBackColor = true;
             // 
+            // datagridBookmarks
+            // 
+            this.datagridBookmarks.AllowUserToOrderColumns = true;
+            this.datagridBookmarks.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.datagridBookmarks.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.datagridBookmarks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridBookmarks.Enabled = false;
+            this.datagridBookmarks.Location = new System.Drawing.Point(16, 214);
+            this.datagridBookmarks.Name = "datagridBookmarks";
+            this.datagridBookmarks.RowHeadersWidth = 62;
+            this.datagridBookmarks.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.datagridBookmarks.RowTemplate.Height = 28;
+            this.datagridBookmarks.Size = new System.Drawing.Size(372, 275);
+            this.datagridBookmarks.TabIndex = 17;
+            // 
+            // btnEditBookmarks
+            // 
+            this.btnEditBookmarks.Location = new System.Drawing.Point(238, 122);
+            this.btnEditBookmarks.Name = "btnEditBookmarks";
+            this.btnEditBookmarks.Size = new System.Drawing.Size(150, 34);
+            this.btnEditBookmarks.TabIndex = 18;
+            this.btnEditBookmarks.Text = "Edit Bookmarks";
+            this.btnEditBookmarks.UseVisualStyleBackColor = true;
+            this.btnEditBookmarks.Click += new System.EventHandler(this.btnEditBookmarks_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(385, 219);
+            this.ClientSize = new System.Drawing.Size(420, 536);
+            this.Controls.Add(this.btnEditBookmarks);
+            this.Controls.Add(this.datagridBookmarks);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.txtBoxStep);
             this.Controls.Add(this.label3);
@@ -270,6 +293,7 @@
             this.Text = "ZWO EAF Tool © Tom Hayko";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.cntxtmnuBookmarks.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.datagridBookmarks)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -291,13 +315,14 @@
         private SplitButton splitButton1;
         private System.Windows.Forms.ContextMenuStrip cntxtmnuBookmarks;
         private System.Windows.Forms.ToolStripMenuItem mnuAddBookmark;
-        private System.Windows.Forms.ToolStripMenuItem mnuEditBookmarks;
         private System.Windows.Forms.Button btnMoveDown;
         private System.Windows.Forms.Button btnMoveUp;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.MaskedTextBox txtBoxStep;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.DataGridView datagridBookmarks;
+        private System.Windows.Forms.Button btnEditBookmarks;
     }
 }
 

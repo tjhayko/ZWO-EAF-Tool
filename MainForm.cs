@@ -22,6 +22,14 @@ namespace ZWO_EAF_Tool
 {
     public partial class MainForm : Form
     {
+        const int normalFormHeight = 175; 
+        const int normalFormWidth = 290;
+
+        const int editFormHeight = 369;
+        const int EditFormWidth = 290;
+
+        private DataTable tableBookmarks = new DataTable("Bookmarks");
+
         const string settingsDirectory = "ZWOEAFTool";
         const string settingsFileName = "ZWOEAFTool.json";
 
@@ -33,6 +41,21 @@ namespace ZWO_EAF_Tool
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+        
+
+        private void initDatatable()
+        {
+            DataColumn column;
+
+            column = new DataColumn("Name");
+
+            tableBookmarks.Columns.Add(column);
+
+            column = new DataColumn("Position");
+
+            tableBookmarks.Columns.Add(column);
+        }
 
         private void moveTo(int id, int pos)
         {
@@ -324,6 +347,7 @@ namespace ZWO_EAF_Tool
             // addMenusFromSettings();
 
             readSettings();
+            initDatatable();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -334,6 +358,11 @@ namespace ZWO_EAF_Tool
             int id;
 
             int i;
+
+            // resize form to hide edit bookmarks controls
+
+            this.Width = normalFormWidth;
+            this.Height = normalFormHeight;
 
             iEAFCount = EAFdll.GetNum();
 
@@ -633,9 +662,12 @@ namespace ZWO_EAF_Tool
             Form edit;
 
 
-            edit = new EditBookmarks(cntxtmnuBookmarks);
+            // edit = new EditBookmarks(cntxtmnuBookmarks);
 
-            edit.ShowDialog();
+            // edit.ShowDialog();
+
+            this.Height = 400;
+            this.Width = 280;
         }
 
         private void cntxtmnuBookmarks_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -711,6 +743,118 @@ namespace ZWO_EAF_Tool
                 EAFComboBoxItem item = (EAFComboBoxItem)comboBoxFocuser.SelectedItem;
 
                 stopFocuser(item.id);
+            }
+        }
+
+        private void btnEditBookmarks_Click(object sender, EventArgs e)
+        {
+            if (btnEditBookmarks.Text == "Edit Bookmarks")
+            {
+                this.Height = editFormHeight;
+                this.Width = EditFormWidth;
+
+                btnEditBookmarks.Text = "Stop Editing";
+
+                DataRow rowBookmark;
+
+                foreach (ToolStripMenuItem item in cntxtmnuBookmarks.Items)
+                {
+                    if (item.Tag != null)
+                    {
+                        rowBookmark = tableBookmarks.NewRow();
+
+                        Bookmark b = (Bookmark)item.Tag;
+
+                        rowBookmark["Name"] = b.name;
+                        rowBookmark["Position"] = b.position.ToString();
+
+                        // MessageBox.Show("Row = '" + b.name + "' | '" + b.position.ToString() + "'");
+
+                        tableBookmarks.Rows.Add(rowBookmark);
+                    }
+                }
+
+                datagridBookmarks.DataSource = tableBookmarks;
+
+                DataGridViewColumn column;
+
+                column = datagridBookmarks.Columns[0];
+
+                column.Width = 100;
+
+                column = datagridBookmarks.Columns[1];
+
+                column.Width = 75;
+
+                datagridBookmarks.Enabled = true;
+            }
+            else
+            {
+                Bookmark b;
+
+                // Remove the menu items that where added
+
+                /* foreach (ToolStripMenuItem item in menuStrip.Items)
+                {
+                    if (item.Tag != null)
+                    {
+                        menuStrip.Items.Remove(item);
+                    }
+                } */
+
+                for (int idx = cntxtmnuBookmarks.Items.Count - 1; idx >= 0; idx--)
+                {
+                    if (cntxtmnuBookmarks.Items[idx].Tag != null)
+                    {
+                        cntxtmnuBookmarks.Items.Remove(cntxtmnuBookmarks.Items[idx]);
+                    }
+                }
+
+                bool bError = false;
+
+                foreach (DataRow row in tableBookmarks.Rows)
+                {
+                    int pos;
+
+                    ToolStripMenuItem menuItem = new ToolStripMenuItem();
+
+                    if (Int32.TryParse(row["Position"].ToString(), out pos))
+                    {
+                        b = new Bookmark();
+
+                        b.name = row["Name"].ToString();
+
+                        b.position = pos;
+
+                        menuItem.Tag = b;
+
+                        menuItem.Text = b.name;
+
+                        cntxtmnuBookmarks.Items.Add(menuItem);
+                    }
+                    else
+                    {
+                        MessageBox.Show("position is not an valid number", "ZWO EAF Tool");
+
+                        bError = true;
+
+                        // TODO: select the row
+
+                        break;
+                    }
+                }
+
+                if (!bError)
+                {
+                    btnEditBookmarks.Text = "Edit Bookmarks";
+
+                    this.Width = normalFormWidth;
+                    this.Height = normalFormHeight;
+
+                    tableBookmarks.Rows.Clear();
+
+                    datagridBookmarks.Enabled = false;
+                }
             }
         }
     }
