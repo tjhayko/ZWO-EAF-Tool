@@ -154,7 +154,7 @@
             this.chkStayOnTop.Location = new System.Drawing.Point(95, 168);
             this.chkStayOnTop.Name = "chkStayOnTop";
             this.chkStayOnTop.Size = new System.Drawing.Size(120, 24);
-            this.chkStayOnTop.TabIndex = 10;
+            this.chkStayOnTop.TabIndex = 11;
             this.chkStayOnTop.Text = "Stay on Top";
             this.chkStayOnTop.UseVisualStyleBackColor = true;
             this.chkStayOnTop.CheckedChanged += new System.EventHandler(this.chkStayOnTop_CheckedChanged);
@@ -246,14 +246,14 @@
             this.datagridBookmarks.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.datagridBookmarks.RowTemplate.Height = 28;
             this.datagridBookmarks.Size = new System.Drawing.Size(372, 275);
-            this.datagridBookmarks.TabIndex = 17;
+            this.datagridBookmarks.TabIndex = 12;
             // 
             // btnEditBookmarks
             // 
             this.btnEditBookmarks.Location = new System.Drawing.Point(238, 122);
             this.btnEditBookmarks.Name = "btnEditBookmarks";
             this.btnEditBookmarks.Size = new System.Drawing.Size(150, 34);
-            this.btnEditBookmarks.TabIndex = 18;
+            this.btnEditBookmarks.TabIndex = 10;
             this.btnEditBookmarks.Text = "Edit Bookmarks";
             this.btnEditBookmarks.UseVisualStyleBackColor = true;
             this.btnEditBookmarks.Click += new System.EventHandler(this.btnEditBookmarks_Click);
@@ -264,7 +264,7 @@
             this.btnUpdateMenu.Location = new System.Drawing.Point(17, 507);
             this.btnUpdateMenu.Name = "btnUpdateMenu";
             this.btnUpdateMenu.Size = new System.Drawing.Size(120, 65);
-            this.btnUpdateMenu.TabIndex = 19;
+            this.btnUpdateMenu.TabIndex = 13;
             this.btnUpdateMenu.Text = "Update Menu";
             this.btnUpdateMenu.UseVisualStyleBackColor = true;
             this.btnUpdateMenu.Click += new System.EventHandler(this.btnUpdateMenu_Click);
@@ -275,7 +275,7 @@
             this.btnSave.Location = new System.Drawing.Point(144, 507);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(120, 65);
-            this.btnSave.TabIndex = 20;
+            this.btnSave.TabIndex = 14;
             this.btnSave.Text = "Update Menu  && Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -286,7 +286,7 @@
             this.btnDiscard.Location = new System.Drawing.Point(272, 507);
             this.btnDiscard.Name = "btnDiscard";
             this.btnDiscard.Size = new System.Drawing.Size(120, 65);
-            this.btnDiscard.TabIndex = 21;
+            this.btnDiscard.TabIndex = 15;
             this.btnDiscard.Text = "Discard Changes";
             this.btnDiscard.UseVisualStyleBackColor = true;
             this.btnDiscard.Click += new System.EventHandler(this.btnDiscard_Click);
@@ -297,7 +297,7 @@
             this.splitButton1.Menu = this.cntxtmnuBookmarks;
             this.splitButton1.Name = "splitButton1";
             this.splitButton1.Size = new System.Drawing.Size(138, 34);
-            this.splitButton1.TabIndex = 8;
+            this.splitButton1.TabIndex = 9;
             this.splitButton1.Text = "Bookmarks";
             this.splitButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.splitButton1.UseVisualStyleBackColor = true;
