@@ -49,9 +49,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtBoxStep = new System.Windows.Forms.MaskedTextBox();
             this.btnStop = new System.Windows.Forms.Button();
-            this.splitButton1 = new ZWO_EAF_Tool.SplitButton();
             this.datagridBookmarks = new System.Windows.Forms.DataGridView();
             this.btnEditBookmarks = new System.Windows.Forms.Button();
+            this.btnUpdateMenu = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnDiscard = new System.Windows.Forms.Button();
+            this.splitButton1 = new ZWO_EAF_Tool.SplitButton();
             this.cntxtmnuBookmarks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridBookmarks)).BeginInit();
             this.SuspendLayout();
@@ -229,17 +232,6 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // splitButton1
-            // 
-            this.splitButton1.Location = new System.Drawing.Point(94, 122);
-            this.splitButton1.Menu = this.cntxtmnuBookmarks;
-            this.splitButton1.Name = "splitButton1";
-            this.splitButton1.Size = new System.Drawing.Size(138, 34);
-            this.splitButton1.TabIndex = 8;
-            this.splitButton1.Text = "Bookmarks";
-            this.splitButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.splitButton1.UseVisualStyleBackColor = true;
-            // 
             // datagridBookmarks
             // 
             this.datagridBookmarks.AllowUserToOrderColumns = true;
@@ -266,11 +258,58 @@
             this.btnEditBookmarks.UseVisualStyleBackColor = true;
             this.btnEditBookmarks.Click += new System.EventHandler(this.btnEditBookmarks_Click);
             // 
+            // btnUpdateMenu
+            // 
+            this.btnUpdateMenu.Enabled = false;
+            this.btnUpdateMenu.Location = new System.Drawing.Point(17, 507);
+            this.btnUpdateMenu.Name = "btnUpdateMenu";
+            this.btnUpdateMenu.Size = new System.Drawing.Size(120, 65);
+            this.btnUpdateMenu.TabIndex = 19;
+            this.btnUpdateMenu.Text = "Update Menu";
+            this.btnUpdateMenu.UseVisualStyleBackColor = true;
+            this.btnUpdateMenu.Click += new System.EventHandler(this.btnUpdateMenu_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(144, 507);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(120, 65);
+            this.btnSave.TabIndex = 20;
+            this.btnSave.Text = "Update Menu  && Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnDiscard
+            // 
+            this.btnDiscard.Enabled = false;
+            this.btnDiscard.Location = new System.Drawing.Point(272, 507);
+            this.btnDiscard.Name = "btnDiscard";
+            this.btnDiscard.Size = new System.Drawing.Size(120, 65);
+            this.btnDiscard.TabIndex = 21;
+            this.btnDiscard.Text = "Discard Changes";
+            this.btnDiscard.UseVisualStyleBackColor = true;
+            this.btnDiscard.Click += new System.EventHandler(this.btnDiscard_Click);
+            // 
+            // splitButton1
+            // 
+            this.splitButton1.Location = new System.Drawing.Point(94, 122);
+            this.splitButton1.Menu = this.cntxtmnuBookmarks;
+            this.splitButton1.Name = "splitButton1";
+            this.splitButton1.Size = new System.Drawing.Size(138, 34);
+            this.splitButton1.TabIndex = 8;
+            this.splitButton1.Text = "Bookmarks";
+            this.splitButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.splitButton1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(420, 536);
+            this.ClientSize = new System.Drawing.Size(420, 584);
+            this.Controls.Add(this.btnDiscard);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnUpdateMenu);
             this.Controls.Add(this.btnEditBookmarks);
             this.Controls.Add(this.datagridBookmarks);
             this.Controls.Add(this.btnStop);
@@ -323,6 +362,9 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.DataGridView datagridBookmarks;
         private System.Windows.Forms.Button btnEditBookmarks;
+        private System.Windows.Forms.Button btnUpdateMenu;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnDiscard;
     }
 }
 
